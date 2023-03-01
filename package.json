@@ -56,5 +56,13 @@
 		"*.{ts,js,json,yaml,yml,svelte,html,css}": [
 			"prettier --write"
 		]
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/JacobLinCool/d1-manager.git"
+	},
+	"homepage": "https://github.com/JacobLinCool/d1-manager",
+	"bugs": {
+		"url": "https://github.com/JacobLinCool/d1-manager/issues"
 	}
 }
