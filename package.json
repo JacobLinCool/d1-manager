@@ -1,8 +1,11 @@
 {
-	"private": true,
 	"name": "d1-manager",
+	"description": "A Web UI to manage data in Cloudflare D1.",
 	"version": "0.0.0",
 	"type": "module",
+	"files": [
+		".svelte-kit/cloudflare"
+	],
 	"scripts": {
 		"prepare": "husky install",
 		"dev": "vite dev",
