@@ -1,0 +1,39 @@
+<script lang="ts">
+	import { browser } from "$app/environment";
+	import { goto } from "$app/navigation";
+	import { page } from "$app/stores";
+	import { t } from "svelte-i18n";
+	import "../app.css";
+	import type { LayoutData } from "./$types";
+
+	export let data: LayoutData;
+	let database = $page.params.database || "";
+	$: {
+		if (browser && database && database !== $page.params.database) {
+			goto(`/db/${database}`);
+		}
+	}
+</script>
+
+<div class="h-full w-full flex flex-col">
+	<div class="navbar min-h-12 bg-base-200">
+		<div class="flex-1">
+			<a
+				class="btn btn-sm btn-ghost normal-case text-xl"
+				href="/"
+				on:click={() => (database = "")}>D1 Manager</a
+			>
+		</div>
+		<div class="flex-none">
+			<select class="select select-sm select-bordered w-full max-w-xs" bind:value={database}>
+				<option value="" disabled selected>{$t("select-database")}</option>
+				{#each data.dbms as db}
+					<option value={db}>{db}</option>
+				{/each}
+			</select>
+		</div>
+	</div>
+	<div class="w-full flex-1 overflow-y-auto">
+		<slot />
+	</div>
+</div>

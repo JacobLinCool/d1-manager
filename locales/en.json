@@ -1,0 +1,18 @@
+{
+	"col-default": "Default",
+	"col-name": "Name",
+	"col-type": "Type",
+	"d1-manager": "D1 Manager",
+	"d1-manager-description": "A Web UI to manage data in Cloudflare D1.",
+	"d1-manager-manage-db": "Use D1 Manager to mange data in {db}",
+	"n-ms-m-changes": "{n} ms, {m} changes",
+	"n-table-in-db": "{n} tables in {db}",
+	"no-result": "No result",
+	"rows": "Rows",
+	"run": "Run",
+	"run-query": "Run Query",
+	"see-github": "Checkout the usage and guide on GitHub",
+	"select-database": "Select Database",
+	"select-database-from-above": "Select a database from the top-right corner",
+	"unknown-error": "Unknown error"
+}

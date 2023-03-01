@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+    workspace:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        volumes:
+            - ..:/workspace
+        command: sleep infinity

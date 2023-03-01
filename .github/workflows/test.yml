@@ -1,0 +1,33 @@
+name: Test
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    test:
+        name: Test
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v3
+
+            - name: Setup PNPM
+              uses: pnpm/action-setup@v2.2.4
+              with:
+                  version: latest
+                  run_install: true
+
+            - name: Install Browser
+              run: npx playwright install chromium --with-deps
+
+            - name: Build All
+              run: pnpm build
+
+            - name: Run Tests
+              run: pnpm test

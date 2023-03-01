@@ -1,0 +1,32 @@
+{
+	"[svelte]": {
+		"editor.formatOnSave": true
+	},
+	"[typescript]": {
+		"editor.formatOnSave": true
+	},
+	"[css]": {
+		"editor.formatOnSave": true
+	},
+	"[json]": {
+		"editor.formatOnSave": true
+	},
+	"i18n-ally.localesPaths": ["locales"],
+	"i18n-ally.keystyle": "nested",
+	"i18n-ally.sortKeys": true,
+	"i18n-ally.keepFulfilled": true,
+	"i18n-ally.extract.parsers.html": {
+		"attributes": ["text", "title", "alt", "placeholder", "label", "aria-label"],
+		"ignoredTags": ["script", "style"],
+		"inlineText": true
+	},
+	"i18n-ally.extract.autoDetect": true,
+	"i18n-ally.refactor.templates": [
+		{
+			"source": "html-attribute",
+			"templates": ["{$t('{key}'{args})}"],
+			"include": ["src/**/*.{svelte,ts}", "index.html"]
+		}
+	],
+	"i18n-ally.sourceLanguage": "en"
+}

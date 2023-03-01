@@ -1,0 +1,12 @@
+{
+	"recommendations": [
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode",
+		"GitHub.copilot",
+		"GitHub.copilot-labs",
+		"svelte.svelte-vscode",
+		"bradlc.vscode-tailwindcss",
+		"antfu.iconify",
+		"lokalise.i18n-ally"
+	]
+}
