@@ -45,7 +45,7 @@
 	<meta name="description" content={$t("d1-manager.description")} />
 </svelte:head>
 
-<div class="h-full w-full flex justify-center items-center">
+<div class="flex h-full w-full items-center justify-center">
 	<div class="prose p-2">
 		<h1>{$t("select-database-from-above")}</h1>
 		<p>
@@ -64,7 +64,7 @@
 			<label class="label" for="theme-select">
 				<span class="label-text">{$t("theme")}</span>
 			</label>
-			<select data-choose-theme id="theme-select" class="select select-accent">
+			<select data-choose-theme id="theme-select" class="select-accent select">
 				{#each themes as theme}
 					<option value={theme}>{theme}</option>
 				{/each}

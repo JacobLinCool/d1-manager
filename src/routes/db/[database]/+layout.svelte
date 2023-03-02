@@ -6,10 +6,10 @@
 	export let data: LayoutData;
 </script>
 
-<div class="h-full w-full flex flex-col">
+<div class="flex h-full w-full flex-col">
 	<div class="navbar min-h-12 border-b border-base-300">
 		<div class="flex-1">
-			<a class="font-bold px-4" href="/db/{$page.params.database}">
+			<a class="px-4 font-bold" href="/db/{$page.params.database}">
 				{$t("n-table-in-db", {
 					values: { db: $page.params.database, n: data.db.length },
 				})}
@@ -17,12 +17,12 @@
 		</div>
 		<div class="flex-none">
 			{#if $page.params.table}
-				<span class="font-bold px-4">
+				<span class="px-4 font-bold">
 					{$page.params.table}
 				</span>
 			{:else}
 				<a
-					class="btn btn-sm btn-outline"
+					class="btn-outline btn-sm btn"
 					href="/api/db/{$page.params.database}/dump/db-{$page.params.database}.sqlite3"
 					target="_blank"
 					rel="noreferrer"

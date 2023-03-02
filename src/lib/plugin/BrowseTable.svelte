@@ -93,8 +93,8 @@
 
 {#if result}
 	{#if result.length}
-		<div class="overflow-x-auto mt-4 transition-opacity" class:opacity-50={running}>
-			<table class="table table-compact w-full">
+		<div class="mt-4 overflow-x-auto transition-opacity" class:opacity-50={running}>
+			<table class="table-compact table w-full">
 				<thead>
 					<tr>
 						{#each cols as col}
@@ -119,10 +119,10 @@
 		</p>
 	{/if}
 
-	<div class="flex justify-between items-center">
+	<div class="flex items-center justify-between">
 		{#if offset > 0}
 			<button
-				class="btn btn-ghost"
+				class="btn-ghost btn"
 				on:click={() => {
 					offset -= limit;
 					run();
@@ -133,7 +133,7 @@
 			</button>
 		{/if}
 
-		<p class="p-4 flex-grow-0">
+		<p class="flex-grow-0 p-4">
 			{$t("plugin.browse-table.showing", {
 				values: {
 					from: result.length ? offset + 1 : offset,
@@ -144,7 +144,7 @@
 
 		{#if result.length === limit}
 			<button
-				class="btn btn-ghost"
+				class="btn-ghost btn"
 				on:click={() => {
 					offset += limit;
 					run();

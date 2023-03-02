@@ -14,11 +14,11 @@
 	/>
 </svelte:head>
 
-<div class="w-full flex flex-col gap-4 justify-start items-center p-4">
+<div class="flex w-full flex-col items-center justify-start gap-4 p-4">
 	{#each data.db as table}
 		<a class="w-full" href="/db/{$page.params.database}/{table.name}">
 			<div
-				class="card card-bordered w-full hover:border-primary hover:shadow-md transition-all"
+				class="card-bordered card w-full transition-all hover:border-primary hover:shadow-md"
 			>
 				<div class="card-body">
 					<h2 class="card-title">{table.name}</h2>

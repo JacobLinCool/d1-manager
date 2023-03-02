@@ -76,14 +76,14 @@
 
 <div class="form-control w-full">
 	<textarea
-		class="textarea textarea-bordered h-24 resize-y font-mono"
+		class="textarea-bordered textarea h-24 resize-y font-mono"
 		placeholder="SELECT COUNT(*) AS c FROM {table}"
 		bind:value={query}
 		on:keypress={handler}
 	/>
 </div>
 
-<button class="btn btn-primary" class:btn-error={danger} on:click={run} disabled={running}
+<button class="btn-primary btn" class:btn-error={danger} on:click={run} disabled={running}
 	>{$t("plugin.run-query.run")}</button
 >
 
@@ -117,7 +117,7 @@
 		</p>
 	{/if}
 
-	<p class="text-sm text-gray-500 mt-2">
+	<p class="mt-2 text-sm text-gray-500">
 		{$t("plugin.run-query.n-ms-m-changes", {
 			values: {
 				n: result.meta.duration.toFixed(2),

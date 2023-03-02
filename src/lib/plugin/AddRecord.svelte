@@ -182,7 +182,7 @@
 					{#if input_type(col.type) !== "file"}
 						<div class="form-control w-full">
 							<input
-								class="input input-bordered input-sm w-full transition-colors"
+								class="input-bordered input input-sm w-full transition-colors"
 								class:input-error={record[col.name].err}
 								type={input_type(col.type)}
 								on:input={(e) => {
@@ -213,14 +213,14 @@
 	</tbody>
 </table>
 
-<button class="btn btn-primary" on:click={add} disabled={running}>
+<button class="btn-primary btn" on:click={add} disabled={running}>
 	{$t("plugin.add-record.add")}
 </button>
 
 {#if result}
 	<div class="alert alert-success">
 		<h3>{$t("plugin.add-record.success")}</h3>
-		<p class="text-sm text-gray-500 mt-2">
+		<p class="mt-2 text-sm text-gray-500">
 			{$t("plugin.add-record.n-ms", {
 				values: {
 					n: result.meta.duration.toFixed(2),

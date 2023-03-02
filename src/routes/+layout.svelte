@@ -21,17 +21,17 @@
 	});
 </script>
 
-<div class="h-full w-full flex flex-col">
+<div class="flex h-full w-full flex-col">
 	<div class="navbar min-h-12 bg-base-200">
 		<div class="flex-1">
 			<a
-				class="btn btn-sm btn-ghost normal-case text-xl"
+				class="btn-ghost btn-sm btn text-xl normal-case"
 				href="/"
 				on:click={() => (database = "")}>D1 Manager</a
 			>
 		</div>
 		<div class="flex-none">
-			<select class="select select-sm select-bordered w-full max-w-xs" bind:value={database}>
+			<select class="select-bordered select select-sm w-full max-w-xs" bind:value={database}>
 				<option value="" disabled selected>{$t("select-database")}</option>
 				{#each data.dbms as db}
 					<option value={db}>{db}</option>

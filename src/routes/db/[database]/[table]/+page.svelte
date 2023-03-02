@@ -34,13 +34,13 @@
 	/>
 </svelte:head>
 
-<div class="w-full flex flex-col gap-4 justify-start items-center">
+<div class="flex w-full flex-col items-center justify-start gap-4">
 	<div class="card w-full">
 		<div class="card-body">
 			<div class="flex justify-between">
 				<h2 class="card-title">{meta.name}</h2>
 				<div class="flex gap-2">
-					<button class="btn btn-sm btn-outline btn-error">Drop</button>
+					<button class="btn-outline btn-error btn-sm btn">Drop</button>
 				</div>
 			</div>
 
@@ -71,7 +71,7 @@
 
 			<div class="divider" />
 
-			<select class="select select-bordered max-w-xs" bind:value={plugin}>
+			<select class="select-bordered select max-w-xs" bind:value={plugin}>
 				{#each Object.keys(plugins) as name}
 					<option value={name}>{name}</option>
 				{/each}
