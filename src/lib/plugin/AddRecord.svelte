@@ -196,10 +196,13 @@
 								}}
 								placeholder={col.dflt_value || ""}
 							/>
-							<label class="label" for="">
-								<span class="label-text-alt text-error">{record[col.name].err}</span
-								>
-							</label>
+							{#if record[col.name].err}
+								<label class="label" for="">
+									<span class="label-text-alt text-error"
+										>{record[col.name].err}</span
+									>
+								</label>
+							{/if}
 						</div>
 					{:else}
 						<span class="text-error"> File upload not supported yet </span>
