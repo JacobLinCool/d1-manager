@@ -26,6 +26,7 @@ specifiers:
     svelte-check: ^3.0.4
     svelte-i18n: ^3.6.0
     tailwindcss: ^3.2.7
+    theme-change: 2.3.0
     tslib: ^2.5.0
     typescript: ^4.9.5
     vite: ^4.1.4
@@ -59,6 +60,7 @@ devDependencies:
     svelte-check: 3.0.4_pehl75e5jsy22vp33udjja4soi
     svelte-i18n: 3.6.0_svelte@3.55.1
     tailwindcss: 3.2.7_postcss@8.4.21
+    theme-change: 2.3.0
     tslib: 2.5.0
     typescript: 4.9.5
     vite: 4.1.4
@@ -6525,6 +6527,13 @@ packages:
         resolution:
             {
                 integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==,
+            }
+        dev: true
+
+    /theme-change/2.3.0:
+        resolution:
+            {
+                integrity: sha512-MOv3g4dQfte9Q7WZKyLRshcw9JqcJCwB+CO1OS7lN1WMJcQyPzmpgwm5Ve55vQ4qt62g++A9+8s1x+vRPpm42w==,
             }
         dev: true
 

@@ -43,5 +43,6 @@
 	"rows": "Rows",
 	"see-github": "Checkout the usage and guide on GitHub",
 	"select-database": "Select Database",
-	"select-database-from-above": "Select a database from the top-right corner"
+	"select-database-from-above": "Select a database from the top-right corner",
+	"theme": "Theme"
 }

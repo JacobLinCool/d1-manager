@@ -43,5 +43,6 @@
 	"rows": "資料筆數",
 	"see-github": "在 GitHub 上查看使用說明",
 	"select-database": "選擇資料庫",
-	"select-database-from-above": "請從右上角選擇一個資料庫"
+	"select-database-from-above": "請從右上角選擇一個資料庫",
+	"theme": "主題"
 }

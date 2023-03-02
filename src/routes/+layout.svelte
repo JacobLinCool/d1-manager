@@ -2,7 +2,9 @@
 	import { browser } from "$app/environment";
 	import { goto } from "$app/navigation";
 	import { page } from "$app/stores";
+	import { onMount } from "svelte";
 	import { t } from "svelte-i18n";
+	import { themeChange } from "theme-change";
 	import "../app.css";
 	import type { LayoutData } from "./$types";
 
@@ -13,6 +15,10 @@
 			goto(`/db/${database}`);
 		}
 	}
+
+	onMount(() => {
+		themeChange(false);
+	});
 </script>
 
 <div class="h-full w-full flex flex-col">

@@ -12,5 +12,5 @@
 
 html,
 body {
-	@apply absolute m-0 h-full w-full overflow-hidden p-0;
+	@apply absolute m-0 h-full w-full overflow-hidden p-0 transition-colors;
 }
