@@ -101,7 +101,23 @@ export const GET: RequestHandler = async ({ params, locals }) => {
 
 		return json(
 			results
-				.sort(({ name }) => (name.startsWith("sqlite_") ? 1 : 0))
+				.sort(({ name: a }, { name: b }) => {
+					if (a.startsWith("sqlite_") && !b.startsWith("sqlite_")) {
+						return 1;
+					} else if (!a.startsWith("sqlite_") && b.startsWith("sqlite_")) {
+						return -1;
+					}
+
+					if (a.startsWith("d1_") && !b.startsWith("d1_")) {
+						return 1;
+					} else if (!a.startsWith("d1_") && b.startsWith("d1_")) {
+						return -1;
+					}
+
+					return a
+						.replace(/^(d1|sqlite)_/, "")
+						.localeCompare(b.replace(/^(d1|sqlite)_/, ""));
+				})
 				.map(({ name }, i) => ({
 					name,
 					columns: columns[i],
