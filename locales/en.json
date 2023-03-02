@@ -2,8 +2,11 @@
 	"col-default": "Default",
 	"col-name": "Name",
 	"col-type": "Type",
-	"d1-manager": "D1 Manager",
-	"d1-manager-description": "A Web UI to manage data in Cloudflare D1.",
+	"d1-manager": {
+		"name": "D1 Manager",
+		"description": "D1 Manager is a web UI and API for Cloudflare D1, a serverless SQL database. It provides a user-friendly interface for managing databases, tables, and records, as well as an API for performing operations programmatically. D1 Manager simplifies database management, enabling users to focus on their data.",
+		"short": "A Web UI to manage data in Cloudflare D1."
+	},
 	"d1-manager-manage-db": "Use D1 Manager to mange data in {db}",
 	"download": "Download",
 	"n-ms-m-changes": "{n} ms, {m} changes",

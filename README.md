@@ -1,6 +1,6 @@
 # D1 Manager
 
-A Web UI to manage data in Cloudflare D1.
+D1 Manager is a web UI and API for Cloudflare D1, a serverless SQL database. It provides a user-friendly interface for managing databases, tables, and records, as well as an API for performing operations programmatically. D1 Manager simplifies database management, enabling users to focus on their data.
 
 ## Features
 

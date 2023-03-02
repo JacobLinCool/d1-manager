@@ -2,8 +2,11 @@
 	"col-default": "預設值",
 	"col-name": "欄位",
 	"col-type": "型別",
-	"d1-manager": "D1 Manager",
-	"d1-manager-description": "輕鬆的管理 Cloudflare D1 裡面的資料",
+	"d1-manager": {
+		"name": "D1 Manager",
+		"description": "D1 Manager 是一個為 Cloudflare D1（無伺服器 SQL 資料庫）設計的網頁界面和 API。它提供了一個易於使用的界面，使用者可以輕鬆地管理數據庫、表格和資料。API 提供了靈活性和與現有工作流程的整合。D1 Manager 讓使用者專注於他們的數據。",
+		"short": "輕鬆的管理 Cloudflare D1 裡面的資料"
+	},
 	"d1-manager-manage-db": "使用 D1 Manager 管理 {db} 中的資料",
 	"download": "下載",
 	"n-ms-m-changes": "花費 {n} 毫秒，{m} 筆資料更動",

@@ -76,7 +76,7 @@
 </script>
 
 <svelte:head>
-	<title>{$page.params.table} @ {$page.params.database} | {$t("d1-manager")}</title>
+	<title>{$page.params.table} @ {$page.params.database} | {$t("d1-manager.name")}</title>
 	<meta
 		name="description"
 		content={$t("d1-manager-manage-db", { values: { db: $page.params.table } })}
