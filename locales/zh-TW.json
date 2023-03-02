@@ -3,21 +3,36 @@
 	"col-name": "欄位",
 	"col-type": "型別",
 	"d1-manager": {
-		"name": "D1 Manager",
 		"description": "D1 Manager 是一個為 Cloudflare D1（無伺服器 SQL 資料庫）設計的網頁界面和 API。它提供了一個易於使用的界面，使用者可以輕鬆地管理數據庫、表格和資料。API 提供了靈活性和與現有工作流程的整合。D1 Manager 讓使用者專注於他們的數據。",
+		"name": "D1 Manager",
 		"short": "輕鬆的管理 Cloudflare D1 裡面的資料"
 	},
 	"d1-manager-manage-db": "使用 D1 Manager 管理 {db} 中的資料",
 	"download": "下載",
-	"n-ms-m-changes": "花費 {n} 毫秒，{m} 筆資料更動",
 	"n-table-in-db": "{db} 中有 {n} 張表",
-	"no-result": "回應中沒有資料",
-	"no-results": "沒有符合的結果",
+	"plugin": {
+		"add-record": {
+			"add": "新增資料",
+			"column": "欄位",
+			"error": "發生錯誤",
+			"integer-is-required": "必須是整數",
+			"n-ms": "執行花費 {n} 毫秒",
+			"name": "新增資料",
+			"real-is-required": "必須是實數",
+			"success": "新增成功",
+			"value": "值"
+		},
+		"run-query": {
+			"n-ms-m-changes": "花費 {n} 毫秒，{m} 筆資料更動",
+			"name": "執行 SQL 查詢",
+			"no-result": "回應中沒有資料",
+			"no-results": "沒有符合的結果",
+			"run": "執行",
+			"unknown-error": "未知的錯誤"
+		}
+	},
 	"rows": "資料筆數",
-	"run": "執行",
-	"run-query": "執行 SQL 查詢",
 	"see-github": "在 GitHub 上查看使用說明",
 	"select-database": "選擇資料庫",
-	"select-database-from-above": "請從右上角選擇一個資料庫",
-	"unknown-error": "未知的錯誤"
+	"select-database-from-above": "請從右上角選擇一個資料庫"
 }

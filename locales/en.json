@@ -3,21 +3,36 @@
 	"col-name": "Name",
 	"col-type": "Type",
 	"d1-manager": {
-		"name": "D1 Manager",
 		"description": "D1 Manager is a web UI and API for Cloudflare D1, a serverless SQL database. It provides a user-friendly interface for managing databases, tables, and records, as well as an API for performing operations programmatically. D1 Manager simplifies database management, enabling users to focus on their data.",
+		"name": "D1 Manager",
 		"short": "A Web UI to manage data in Cloudflare D1."
 	},
 	"d1-manager-manage-db": "Use D1 Manager to mange data in {db}",
 	"download": "Download",
-	"n-ms-m-changes": "{n} ms, {m} changes",
 	"n-table-in-db": "{n} tables in {db}",
-	"no-result": "No result",
-	"no-results": "No Results",
+	"plugin": {
+		"add-record": {
+			"add": "Add Record",
+			"column": "Column",
+			"error": "Error",
+			"integer-is-required": "INTEGER is required",
+			"n-ms": "{n} ms",
+			"name": "Add Record",
+			"real-is-required": "REAL number is required",
+			"success": "Success",
+			"value": "Value"
+		},
+		"run-query": {
+			"n-ms-m-changes": "{n} ms, {m} changes",
+			"name": "Run SQL Query",
+			"no-result": "No result",
+			"no-results": "No Results",
+			"run": "Run",
+			"unknown-error": "Unknown error"
+		}
+	},
 	"rows": "Rows",
-	"run": "Run",
-	"run-query": "Run Query",
 	"see-github": "Checkout the usage and guide on GitHub",
 	"select-database": "Select Database",
-	"select-database-from-above": "Select a database from the top-right corner",
-	"unknown-error": "Unknown error"
+	"select-database-from-above": "Select a database from the top-right corner"
 }

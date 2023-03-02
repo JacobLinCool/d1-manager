@@ -9,68 +9,18 @@
 		throw new Error(`Table not found: ${$page.params.table} in ${$page.params.database}`);
 	}
 
-	let query = `SELECT * FROM ${$page.params.table} LIMIT 100`;
-	let running = false;
-	let result:
-		| {
-				results: Record<string, unknown>[];
-				success: boolean;
-				meta: {
-					duration: number;
-					last_row_id: number;
-					changes: number;
-					served_by: string;
-					internal_stats: null;
-				};
-		  }
-		| undefined;
-	let error:
-		| {
-				error: {
-					message: string;
-					cause?: string;
-				};
-		  }
-		| undefined;
-	async function run() {
-		if (running) {
-			return;
-		}
-		running = true;
+	const plugins = {
+		[$t("plugin.run-query.name")]: () => import("$lib/plugin/RunQuery.svelte"),
+		[$t("plugin.add-record.name")]: () => import("$lib/plugin/AddRecord.svelte"),
+	};
 
-		try {
-			const res = await fetch(`/api/db/${$page.params.database}/all`, {
-				method: "POST",
-				body: JSON.stringify({ query }),
+	let plugin: string | undefined;
+	let PluginComponent: ConstructorOfATypedSvelteComponent | undefined;
+	$: {
+		if (plugin) {
+			plugins[plugin]().then((m) => {
+				PluginComponent = m.default;
 			});
-
-			const json = await res.json<typeof result | typeof error>();
-			if (json) {
-				if ("error" in json) {
-					error = json;
-					result = undefined;
-				} else {
-					result = json;
-					error = undefined;
-				}
-			} else {
-				throw new Error($t("no-result"));
-			}
-		} catch (err) {
-			error = {
-				error: {
-					message: err instanceof Error ? err.message : $t("unknown-error"),
-				},
-			};
-			result = undefined;
-		} finally {
-			running = false;
-		}
-	}
-
-	function handler(evt: KeyboardEvent) {
-		if (evt.code === "Enter" && evt.shiftKey === true) {
-			run();
 		}
 	}
 </script>
@@ -83,10 +33,15 @@
 	/>
 </svelte:head>
 
-<div class="w-full flex flex-col gap-4 justify-start items-center p-4">
+<div class="w-full flex flex-col gap-4 justify-start items-center">
 	<div class="card w-full">
 		<div class="card-body">
-			<h2 class="card-title">{meta.name}</h2>
+			<div class="flex justify-between">
+				<h2 class="card-title">{meta.name}</h2>
+				<div class="flex gap-2">
+					<button class="btn btn-sm btn-outline btn-error">Drop</button>
+				</div>
+			</div>
 
 			<div class="divider" />
 
@@ -115,66 +70,19 @@
 
 			<div class="divider" />
 
-			<div class="form-control w-full">
-				<label class="label" for="">
-					<span class="label-text">{$t("run-query")}</span>
-				</label>
-				<textarea
-					class="textarea textarea-bordered h-24 resize-y font-mono"
-					placeholder="SELECT COUNT(*) AS c FROM {meta.name}"
-					bind:value={query}
-					on:keypress={handler}
+			<select class="select select-bordered max-w-xs" bind:value={plugin}>
+				{#each Object.keys(plugins) as name}
+					<option value={name}>{name}</option>
+				{/each}
+			</select>
+
+			{#if PluginComponent}
+				<svelte:component
+					this={PluginComponent}
+					{data}
+					database={$page.params.database}
+					table={$page.params.table}
 				/>
-			</div>
-
-			<button class="btn btn-primary" on:click={run} disabled={running}>{$t("run")}</button>
-
-			{#if result}
-				<div class="divider" />
-
-				{#if result.results.length}
-					<div class="overflow-x-auto">
-						<table class="table w-full">
-							<thead>
-								<tr>
-									{#each Object.keys(result.results[0]) as key}
-										<th class="normal-case">{key}</th>
-									{/each}
-								</tr>
-							</thead>
-							<tbody>
-								{#each result.results as row}
-									<tr class="hover">
-										{#each Object.values(row) as value}
-											<td>{value}</td>
-										{/each}
-									</tr>
-								{/each}
-							</tbody>
-						</table>
-					</div>
-				{:else}
-					<p>
-						{$t("no-results")}
-					</p>
-				{/if}
-
-				<p class="text-sm text-gray-500 mt-2">
-					{$t("n-ms-m-changes", {
-						values: {
-							n: result.meta.duration.toFixed(2),
-							m: result.meta.changes,
-						},
-					})}
-				</p>
-			{/if}
-
-			{#if error}
-				<div class="divider" />
-
-				<div class="alert alert-error shadow-lg">
-					<div>{error.error.cause || error.error.message}</div>
-				</div>
 			{/if}
 		</div>
 	</div>
