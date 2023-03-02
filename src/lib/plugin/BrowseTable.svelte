@@ -136,7 +136,7 @@
 		<p class="p-4 flex-grow-0">
 			{$t("plugin.browse-table.showing", {
 				values: {
-					from: offset + 1,
+					from: result.length ? offset + 1 : offset,
 					to: offset + result.length,
 				},
 			})}
