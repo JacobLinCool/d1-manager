@@ -100,11 +100,13 @@ export const GET: RequestHandler = async ({ params, locals }) => {
 		const count = (await _count).map(({ results }) => results?.[0].c);
 
 		return json(
-			results.map(({ name }, i) => ({
-				name,
-				columns: columns[i],
-				count: count[i],
-			})),
+			results
+				.sort(({ name }) => (name.startsWith("sqlite_") ? 1 : 0))
+				.map(({ name }, i) => ({
+					name,
+					columns: columns[i],
+					count: count[i],
+				})),
 		);
 	} catch (err: any) {
 		return json({
