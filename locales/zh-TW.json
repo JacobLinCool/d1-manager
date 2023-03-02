@@ -8,6 +8,7 @@
 	"n-ms-m-changes": "花費 {n} 毫秒，{m} 筆資料更動",
 	"n-table-in-db": "{db} 中有 {n} 張表",
 	"no-result": "回應中沒有資料",
+	"no-results": "沒有符合的結果",
 	"rows": "資料筆數",
 	"run": "執行",
 	"run-query": "執行 SQL 查詢",

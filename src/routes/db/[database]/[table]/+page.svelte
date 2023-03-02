@@ -125,26 +125,32 @@
 			{#if result}
 				<div class="divider" />
 
-				<div class="overflow-x-auto">
-					<table class="table w-full">
-						<thead>
-							<tr>
-								{#each Object.keys(result.results[0]) as key}
-									<th class="normal-case">{key}</th>
-								{/each}
-							</tr>
-						</thead>
-						<tbody>
-							{#each result.results as row}
-								<tr class="hover">
-									{#each Object.values(row) as value}
-										<td>{value}</td>
+				{#if result.results.length}
+					<div class="overflow-x-auto">
+						<table class="table w-full">
+							<thead>
+								<tr>
+									{#each Object.keys(result.results[0]) as key}
+										<th class="normal-case">{key}</th>
 									{/each}
 								</tr>
-							{/each}
-						</tbody>
-					</table>
-				</div>
+							</thead>
+							<tbody>
+								{#each result.results as row}
+									<tr class="hover">
+										{#each Object.values(row) as value}
+											<td>{value}</td>
+										{/each}
+									</tr>
+								{/each}
+							</tbody>
+						</table>
+					</div>
+				{:else}
+					<p>
+						{$t("no-results")}
+					</p>
+				{/if}
 
 				<p class="text-sm text-gray-500 mt-2">
 					{$t("n-ms-m-changes", {
