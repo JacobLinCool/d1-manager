@@ -67,6 +67,12 @@
 			running = false;
 		}
 	}
+
+	function handler(evt: KeyboardEvent) {
+		if (evt.code === "Enter" && evt.shiftKey === true) {
+			run();
+		}
+	}
 </script>
 
 <svelte:head>
@@ -117,6 +123,7 @@
 					class="textarea textarea-bordered h-24 resize-y font-mono"
 					placeholder="SELECT COUNT(*) AS c FROM {meta.name}"
 					bind:value={query}
+					on:keypress={handler}
 				/>
 			</div>
 

@@ -20,6 +20,15 @@
 				<span class="font-bold px-4">
 					{$page.params.table}
 				</span>
+			{:else}
+				<a
+					class="btn btn-sm btn-outline"
+					href="/api/db/{$page.params.database}/dump/db-{$page.params.database}.sqlite3"
+					target="_blank"
+					rel="noreferrer"
+				>
+					{$t("download")}
+				</a>
 			{/if}
 		</div>
 	</div>

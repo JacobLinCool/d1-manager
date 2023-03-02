@@ -5,6 +5,7 @@
 	"d1-manager": "D1 Manager",
 	"d1-manager-description": "A Web UI to manage data in Cloudflare D1.",
 	"d1-manager-manage-db": "Use D1 Manager to mange data in {db}",
+	"download": "Download",
 	"n-ms-m-changes": "{n} ms, {m} changes",
 	"n-table-in-db": "{n} tables in {db}",
 	"no-result": "No result",
