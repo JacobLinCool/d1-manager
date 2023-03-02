@@ -22,6 +22,15 @@
 			"success": "Success",
 			"value": "Value"
 		},
+		"browse-table": {
+			"name": "Browse Table",
+			"next": "Next",
+			"no-result": "No Result",
+			"no-results": "No Matched Result",
+			"prev": "Previous",
+			"showing": "{from} ~ {to}",
+			"unknown-error": "Unknown Error"
+		},
 		"run-query": {
 			"n-ms-m-changes": "{n} ms, {m} changes",
 			"name": "Run SQL Query",

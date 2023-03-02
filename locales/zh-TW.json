@@ -22,6 +22,15 @@
 			"success": "新增成功",
 			"value": "值"
 		},
+		"browse-table": {
+			"name": "瀏覽表格",
+			"next": "下一頁",
+			"no-result": "無資料",
+			"no-results": "沒有符合的結果",
+			"prev": "上一頁",
+			"showing": "顯示 {from} 至 {to} 筆資料",
+			"unknown-error": "未知錯誤"
+		},
 		"run-query": {
 			"n-ms-m-changes": "花費 {n} 毫秒，{m} 筆資料更動",
 			"name": "執行 SQL 查詢",
