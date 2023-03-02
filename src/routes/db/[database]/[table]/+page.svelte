@@ -78,7 +78,7 @@
 </svelte:head>
 
 <div class="w-full flex flex-col gap-4 justify-start items-center p-4">
-	<div class="card card-bordered w-full hover:border-primary hover:shadow-md transition-all">
+	<div class="card w-full">
 		<div class="card-body">
 			<h2 class="card-title">{meta.name}</h2>
 
@@ -130,7 +130,7 @@
 						<thead>
 							<tr>
 								{#each Object.keys(result.results[0]) as key}
-									<th>{key}</th>
+									<th class="normal-case">{key}</th>
 								{/each}
 							</tr>
 						</thead>
