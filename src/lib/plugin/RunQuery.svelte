@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { t } from "svelte-i18n";
+	import { is_dangerous } from "../sql";
 
 	export let database: string;
 	export let table: string;
 
 	$: query = `SELECT * FROM ${table} LIMIT 100`;
-	$: danger = query.toLowerCase().includes("drop");
+	$: danger = is_dangerous(query);
 
 	let running = false;
 	let result:

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { t } from "svelte-i18n";
 	import type { PluginData } from "./type";
+	import { is_dangerous, is_readonly } from "../sql";
 
 	export let database: string;
 	export let table: string;
@@ -16,7 +17,7 @@
 
 	let running = false;
 	let suggestion: string | undefined;
-	$: danger = suggestion?.toLowerCase().includes("drop");
+	$: danger = is_dangerous(suggestion || "");
 	let result:
 		| {
 				results: Record<string, unknown>[];
@@ -112,6 +113,12 @@
 			suggest();
 		}
 	}
+
+	function run_handler(evt: KeyboardEvent) {
+		if (evt.code === "Enter" && evt.shiftKey === true) {
+			run();
+		}
+	}
 </script>
 
 <p class="pt-2 text-sm opacity-70">
@@ -124,6 +131,7 @@
 		placeholder={$t("show-first-10-records")}
 		bind:value={query}
 		on:keypress={suggest_handler}
+		disabled={running}
 	/>
 </div>
 
@@ -136,6 +144,8 @@
 		class="textarea-bordered textarea h-24 resize-y font-mono"
 		placeholder={$t("suggestion-will-appear-here")}
 		bind:value={suggestion}
+		on:keypress={run_handler}
+		disabled={running}
 	/>
 </div>
 
