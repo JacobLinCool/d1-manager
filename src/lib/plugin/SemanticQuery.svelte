@@ -1,0 +1,192 @@
+<script lang="ts">
+	import { t } from "svelte-i18n";
+	import type { PluginData } from "./type";
+
+	export let database: string;
+	export let table: string;
+	export let data: PluginData;
+
+	const cols: [string, string][] =
+		data.db
+			.find(({ name }) => name === table)
+			?.columns.sort(({ cid: a }, { cid: b }) => a - b)
+			.map(({ name, type }) => [name, type]) || [];
+
+	let query = $t("show-first-10-records");
+
+	let running = false;
+	let suggestion: string | undefined;
+	$: danger = suggestion?.toLowerCase().includes("drop");
+	let result:
+		| {
+				results: Record<string, unknown>[];
+				success: boolean;
+				meta: {
+					duration: number;
+					last_row_id: number;
+					changes: number;
+					served_by: string;
+					internal_stats: null;
+				};
+		  }
+		| undefined;
+	let error:
+		| {
+				error: {
+					message: string;
+					cause?: string;
+				};
+		  }
+		| undefined;
+
+	async function suggest() {
+		if (running) {
+			return;
+		}
+		running = true;
+
+		try {
+			const res = await fetch(`/api/plugin/semantic-query`, {
+				method: "POST",
+				body: JSON.stringify({ q: query, t: table, cols }),
+			});
+
+			const json = await res.json<{ sql: string } | typeof error>();
+			if (json) {
+				if ("error" in json) {
+					error = json;
+					suggestion = undefined;
+				} else {
+					suggestion = json.sql;
+					error = undefined;
+				}
+			} else {
+				throw new Error($t("plugin.semantic-query.no-result"));
+			}
+		} finally {
+			running = false;
+		}
+	}
+
+	async function run() {
+		if (running) {
+			return;
+		}
+		running = true;
+
+		try {
+			const res = await fetch(`/api/db/${database}/all`, {
+				method: "POST",
+				body: JSON.stringify({ query: suggestion }),
+			});
+
+			const json = await res.json<typeof result | typeof error>();
+			if (json) {
+				if ("error" in json) {
+					error = json;
+					result = undefined;
+				} else {
+					result = json;
+					error = undefined;
+				}
+			} else {
+				throw new Error($t("plugin.semantic-query.no-result"));
+			}
+		} catch (err) {
+			error = {
+				error: {
+					message:
+						err instanceof Error
+							? err.message
+							: $t("plugin.semantic-query.unknown-error"),
+				},
+			};
+			result = undefined;
+		} finally {
+			running = false;
+		}
+	}
+
+	function suggest_handler(evt: KeyboardEvent) {
+		if (evt.code === "Enter" && evt.shiftKey === true) {
+			suggest();
+		}
+	}
+</script>
+
+<p class="pt-2 text-sm opacity-70">
+	{$t("requires-openai_api_key")}
+</p>
+
+<div class="form-control w-full">
+	<textarea
+		class="textarea-bordered textarea h-24 resize-y font-mono"
+		placeholder={$t("show-first-10-records")}
+		bind:value={query}
+		on:keypress={suggest_handler}
+	/>
+</div>
+
+<button class="btn-outline btn-primary btn" on:click={suggest} disabled={running}>
+	{$t("plugin.semantic-query.suggest")}
+</button>
+
+<div class="form-control w-full">
+	<textarea
+		class="textarea-bordered textarea h-24 resize-y font-mono"
+		placeholder={$t("suggestion-will-appear-here")}
+		bind:value={suggestion}
+	/>
+</div>
+
+<button class="btn-primary btn" class:btn-error={danger} on:click={run} disabled={running}>
+	{$t("plugin.semantic-query.run")}
+</button>
+
+{#if result}
+	<div class="divider" />
+
+	{#if result.results.length}
+		<div class="overflow-x-auto">
+			<table class="table w-full">
+				<thead>
+					<tr>
+						{#each Object.keys(result.results[0]) as key}
+							<th class="normal-case">{key}</th>
+						{/each}
+					</tr>
+				</thead>
+				<tbody>
+					{#each result.results as row}
+						<tr class="hover">
+							{#each Object.values(row) as value}
+								<td>{value}</td>
+							{/each}
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</div>
+	{:else}
+		<p>
+			{$t("plugin.semantic-query.no-results")}
+		</p>
+	{/if}
+
+	<p class="mt-2 text-sm opacity-70">
+		{$t("plugin.semantic-query.n-ms-m-changes", {
+			values: {
+				n: result.meta.duration.toFixed(2),
+				m: result.meta.changes,
+			},
+		})}
+	</p>
+{/if}
+
+{#if error}
+	<div class="divider" />
+
+	<div class="alert alert-error shadow-lg">
+		<div>{error.error.cause || error.error.message}</div>
+	</div>
+{/if}

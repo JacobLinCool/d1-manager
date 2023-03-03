@@ -38,11 +38,23 @@
 			"no-results": "沒有符合的結果",
 			"run": "執行",
 			"unknown-error": "未知的錯誤"
+		},
+		"semantic-query": {
+			"n-ms-m-changes": "花費 {n} 毫秒，{m} 筆資料更動",
+			"name": "語意搜尋",
+			"no-result": "回應中沒有資料",
+			"no-results": "沒有符合的結果",
+			"run": "執行",
+			"suggest": "編寫語句",
+			"unknown-error": "未知的錯誤"
 		}
 	},
+	"requires-openai_api_key": "提醒：此工具需要設置 OPENAI_API_KEY 環境變數",
 	"rows": "資料筆數",
 	"see-github": "在 GitHub 上查看使用說明",
 	"select-database": "選擇資料庫",
 	"select-database-from-above": "請從右上角選擇一個資料庫",
+	"show-first-10-records": "顯示前十筆資料",
+	"suggestion-will-appear-here": "產生的 SQL 語句將顯示在此",
 	"theme": "主題"
 }

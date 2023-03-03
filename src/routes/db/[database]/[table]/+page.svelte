@@ -13,6 +13,7 @@
 		[$t("plugin.run-query.name")]: () => import("$lib/plugin/RunQuery.svelte"),
 		[$t("plugin.browse-table.name")]: () => import("$lib/plugin/BrowseTable.svelte"),
 		[$t("plugin.add-record.name")]: () => import("$lib/plugin/AddRecord.svelte"),
+		[$t("plugin.semantic-query.name")]: () => import("$lib/plugin/SemanticQuery.svelte"),
 	};
 
 	let plugin: string | undefined;

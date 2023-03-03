@@ -38,11 +38,23 @@
 			"no-results": "No Results",
 			"run": "Run",
 			"unknown-error": "Unknown error"
+		},
+		"semantic-query": {
+			"n-ms-m-changes": "{n} ms, {m} changes",
+			"name": "Semantic Query",
+			"no-result": "No result",
+			"no-results": "No Results",
+			"run": "Run",
+			"suggest": "Get SQL",
+			"unknown-error": "Unknown error"
 		}
 	},
+	"requires-openai_api_key": "This plugin requires the OPENAI_API_KEY environment variable to be set.",
 	"rows": "Rows",
 	"see-github": "Checkout the usage and guide on GitHub",
 	"select-database": "Select Database",
 	"select-database-from-above": "Select a database from the top-right corner",
+	"show-first-10-records": "show first 10 records",
+	"suggestion-will-appear-here": "Suggestion will appear here",
 	"theme": "Theme"
 }
