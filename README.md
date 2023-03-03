@@ -8,6 +8,7 @@ D1 Manager is a web UI and API for Cloudflare D1, a serverless SQL database. It 
 - [x] List all tables in a database
 - [x] Show table schema
 - [x] Run SQL queries
+- [x] Run Semantic Queries (with `OPENAI_API_KEY` env var set)
 - [ ] Create new table through UI
 - [ ] Edit table data through UI
 - [ ] Custom SQL scripts
@@ -25,6 +26,12 @@ D1 Manager is a web UI and API for Cloudflare D1, a serverless SQL database. It 
 
 > Note: You can bind multiple databases to the manager. In theis example, `DB` will be `default` in the UI, and `DB_test` will be `test`.
 
+### Environment Variables
+
+Some plugins (e.g. Semantic Query) require additional environment variables to be set.
+
+![set-env-var](./images/set-env-var.png)
+
 ## Screenshots
 
 ![tables](./images/tables.png)
@@ -34,3 +41,7 @@ D1 Manager is a web UI and API for Cloudflare D1, a serverless SQL database. It 
 ![table-browser](./images/table-browser.png)
 
 ![add-record](./images/add-record.png)
+
+![semantic-query](./images/semantic-query.png)
+
+> Semantic Query uses OpenAI Codex to translate natural language queries into SQL.
