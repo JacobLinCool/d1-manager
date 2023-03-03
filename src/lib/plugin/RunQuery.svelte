@@ -65,6 +65,9 @@
 			result = undefined;
 		} finally {
 			running = false;
+			setTimeout(() => {
+				document.querySelector("#bottom")?.scrollIntoView({ behavior: "smooth" });
+			}, 50);
 		}
 	}
 
@@ -135,3 +138,5 @@
 		<div>{error.error.cause || error.error.message}</div>
 	</div>
 {/if}
+
+<div id="bottom" />

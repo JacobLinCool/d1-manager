@@ -108,6 +108,9 @@
 			result = undefined;
 		} finally {
 			running = false;
+			setTimeout(() => {
+				document.querySelector("#bottom")?.scrollIntoView({ behavior: "smooth" });
+			}, 50);
 		}
 	}
 
@@ -125,36 +128,50 @@
 </script>
 
 <p class="pt-2 text-sm opacity-70">
-	{$t("requires-openai_api_key")}
+	{$t("plugin.semantic-query.requires-openai_api_key")}
+	{$t("plugin.semantic-query.autorun-on-read-only-queries")}
 </p>
 
 <div class="form-control w-full">
-	<textarea
-		class="textarea-bordered textarea h-16 resize-y font-sans"
-		placeholder={$t("show-first-10-records")}
-		bind:value={query}
-		on:keypress={suggest_handler}
-		disabled={running}
-	/>
-</div>
+	<div class="input-group">
+		<textarea
+			class="textarea-bordered textarea h-12 flex-1 resize-y font-sans"
+			placeholder={$t("show-first-10-records")}
+			bind:value={query}
+			on:keypress={suggest_handler}
+			disabled={running}
+		/>
 
-<button class="btn-outline btn-primary btn" on:click={suggest} disabled={running}>
-	{$t("plugin.semantic-query.suggest")}
-</button>
+		<button
+			class="btn-outline btn-primary btn h-auto min-w-[6rem]"
+			on:click={suggest}
+			disabled={running}
+		>
+			{$t("plugin.semantic-query.suggest")}
+		</button>
+	</div>
+</div>
 
 <div class="form-control w-full">
-	<textarea
-		class="textarea-bordered textarea h-24 resize-y font-mono"
-		placeholder={$t("suggestion-will-appear-here")}
-		bind:value={suggestion}
-		on:keypress={run_handler}
-		disabled={running}
-	/>
-</div>
+	<div class="input-group">
+		<textarea
+			class="textarea-bordered textarea h-16 flex-1 resize-y font-mono"
+			placeholder={$t("suggestion-will-appear-here")}
+			bind:value={suggestion}
+			on:keypress={run_handler}
+			disabled={running}
+		/>
 
-<button class="btn-primary btn" class:btn-error={danger} on:click={run} disabled={running}>
-	{$t("plugin.semantic-query.run")}
-</button>
+		<button
+			class="btn-primary btn h-auto min-w-[6rem]"
+			class:btn-error={danger}
+			on:click={run}
+			disabled={running}
+		>
+			{$t("plugin.semantic-query.run")}
+		</button>
+	</div>
+</div>
 
 {#if result}
 	<div class="divider" />
@@ -203,3 +220,5 @@
 		<div>{error.error.cause || error.error.message}</div>
 	</div>
 {/if}
+
+<div id="bottom" />
