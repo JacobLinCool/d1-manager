@@ -66,6 +66,9 @@
 			}
 		} finally {
 			running = false;
+			if (is_readonly(suggestion || "")) {
+				run();
+			}
 		}
 	}
 
@@ -127,7 +130,7 @@
 
 <div class="form-control w-full">
 	<textarea
-		class="textarea-bordered textarea h-24 resize-y font-mono"
+		class="textarea-bordered textarea h-16 resize-y font-sans"
 		placeholder={$t("show-first-10-records")}
 		bind:value={query}
 		on:keypress={suggest_handler}
