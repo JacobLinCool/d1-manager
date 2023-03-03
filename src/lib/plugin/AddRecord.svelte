@@ -1,25 +1,11 @@
 <script lang="ts">
 	import { t } from "svelte-i18n";
+	import type { PluginData } from "./type";
 	import { z } from "zod";
 
 	export let database: string;
 	export let table: string;
-	export let data: {
-		db: {
-			name: string;
-			columns: [
-				{
-					cid: number;
-					name: string;
-					type: "INTEGER" | "TEXT" | "REAL" | "BLOB";
-					notnull: number;
-					dflt_value: string | null;
-					pk: number;
-				},
-			];
-			count: number;
-		}[];
-	};
+	export let data: PluginData;
 
 	const cols = data.db
 		.find(({ name }) => name === table)

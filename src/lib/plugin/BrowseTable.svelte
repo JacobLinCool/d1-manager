@@ -1,25 +1,11 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import { t } from "svelte-i18n";
+	import type { PluginData } from "./type";
 
 	export let database: string;
 	export let table: string;
-	export let data: {
-		db: {
-			name: string;
-			columns: [
-				{
-					cid: number;
-					name: string;
-					type: "INTEGER" | "TEXT" | "REAL" | "BLOB";
-					notnull: number;
-					dflt_value: string | null;
-					pk: number;
-				},
-			];
-			count: number;
-		}[];
-	};
+	export let data: PluginData;
 
 	const cols =
 		data.db
