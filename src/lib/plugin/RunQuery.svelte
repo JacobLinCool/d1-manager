@@ -117,7 +117,7 @@
 		</p>
 	{/if}
 
-	<p class="mt-2 text-sm text-gray-500">
+	<p class="mt-2 text-sm opacity-70">
 		{$t("plugin.run-query.n-ms-m-changes", {
 			values: {
 				n: result.meta.duration.toFixed(2),

@@ -220,7 +220,7 @@
 {#if result}
 	<div class="alert alert-success">
 		<h3>{$t("plugin.add-record.success")}</h3>
-		<p class="mt-2 text-sm text-gray-500">
+		<p class="mt-2 text-sm opacity-70">
 			{$t("plugin.add-record.n-ms", {
 				values: {
 					n: result.meta.duration.toFixed(2),
