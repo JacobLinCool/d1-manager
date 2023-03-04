@@ -10,10 +10,10 @@
 	}
 
 	const plugins = {
-		[$t("plugin.run-query.name")]: () => import("$lib/plugin/RunQuery.svelte"),
 		[$t("plugin.table-browser.name")]: () => import("$lib/plugin/TableBrowser.svelte"),
-		[$t("plugin.add-record.name")]: () => import("$lib/plugin/AddRecord.svelte"),
+		[$t("plugin.run-query.name")]: () => import("$lib/plugin/RunQuery.svelte"),
 		[$t("plugin.semantic-query.name")]: () => import("$lib/plugin/SemanticQuery.svelte"),
+		[$t("plugin.add-record.name")]: () => import("$lib/plugin/AddRecord.svelte"),
 	};
 
 	let plugin: string | undefined;
