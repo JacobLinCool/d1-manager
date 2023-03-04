@@ -49,7 +49,7 @@
 		try {
 			const res = await fetch(`/api/plugin/semantic-query`, {
 				method: "POST",
-				body: JSON.stringify({ q: query, t: table, cols }),
+				body: JSON.stringify({ q: query, t: [[table, cols]] }),
 			});
 
 			const json = await res.json<{ sql: string } | typeof error>();
@@ -178,7 +178,7 @@
 
 	{#if result.results.length}
 		<div class="overflow-x-auto">
-			<table class="table w-full">
+			<table class="table-compact table w-full">
 				<thead>
 					<tr>
 						{#each Object.keys(result.results[0]) as key}
