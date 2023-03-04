@@ -140,7 +140,7 @@
 				case "BLOB":
 					return "File upload not supported yet";
 				default:
-					return "Unknown type";
+					return "";
 			}
 		} catch (err) {
 			if (err instanceof z.ZodError) {
