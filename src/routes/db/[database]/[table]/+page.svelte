@@ -2,6 +2,7 @@
 	import { page } from "$app/stores";
 	import { t } from "svelte-i18n";
 	import type { PageData } from "./$types";
+	import SidePanel from "./SidePanel.svelte";
 
 	export let data: PageData;
 	const meta = data.db.find((table) => table.name === $page.params.table);
@@ -87,3 +88,5 @@
 		</div>
 	</div>
 </div>
+
+<SidePanel {data} />
