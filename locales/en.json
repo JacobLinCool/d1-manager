@@ -23,8 +23,10 @@
 			"value": "Value"
 		},
 		"browse-table": {
+			"invalid-rowid": "Invalid rowid",
 			"name": "Browse Table",
 			"next": "Next",
+			"no-record": "No Record",
 			"no-result": "No Result",
 			"no-results": "No Matched Result",
 			"prev": "Previous",

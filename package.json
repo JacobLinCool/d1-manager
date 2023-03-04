@@ -24,6 +24,7 @@
 		"@changesets/changelog-github": "^0.4.8",
 		"@changesets/cli": "^2.26.0",
 		"@cloudflare/workers-types": "^4.20230221.0",
+		"@iconify/svelte": "^3.1.0",
 		"@playwright/test": "^1.31.1",
 		"@sveltejs/adapter-cloudflare": "^2.0.2",
 		"@sveltejs/kit": "^1.8.6",

@@ -2,6 +2,7 @@
 	import { onMount } from "svelte";
 	import { t } from "svelte-i18n";
 	import type { PluginData } from "./type";
+	import Icon from "@iconify/svelte";
 
 	export let database: string;
 	export let table: string;
@@ -17,6 +18,7 @@
 	let limit = 20;
 	let order = "";
 	let dir: "ASC" | "DESC" = "ASC";
+	let select = "*";
 
 	let running = false;
 	let result: Record<string, unknown>[] | undefined;
@@ -41,6 +43,7 @@
 
 		try {
 			const params = new URLSearchParams();
+			params.set("select", `rowid AS _, ${select}`);
 			params.set("offset", offset.toString());
 			params.set("limit", limit.toString());
 			if (order) {
@@ -75,25 +78,175 @@
 			running = false;
 		}
 	}
+
+	function change_sort(col: string) {
+		if (order === col) {
+			dir = dir === "ASC" ? "DESC" : "ASC";
+		} else {
+			order = col;
+			dir = "ASC";
+		}
+		run();
+	}
+
+	async function remove(rowid: unknown) {
+		if (running) {
+			return;
+		}
+		running = true;
+
+		console.log("remove", rowid);
+
+		try {
+			if (typeof rowid !== "number") {
+				throw new Error($t("plugin.browse-table.invalid-rowid"));
+			}
+
+			const res = await fetch(`/api/db/${database}/${table}/data/?rowid=${rowid}`, {
+				method: "DELETE",
+			});
+
+			const json = await res.json<typeof error>();
+			if (json) {
+				if ("error" in json) {
+					error = json;
+				} else {
+					error = undefined;
+				}
+			} else {
+				throw new Error($t("plugin.browse-table.no-result"));
+			}
+		} catch (err) {
+			error = {
+				error: {
+					message:
+						err instanceof Error
+							? err.message
+							: $t("plugin.browse-table.unknown-error"),
+				},
+			};
+			result = undefined;
+		} finally {
+			running = false;
+
+			const err = error;
+			await run();
+			error = err;
+		}
+	}
+
+	async function edit(rowid: unknown, col: string) {
+		if (running) {
+			return;
+		}
+		running = true;
+
+		const record = result?.find((r) => r._ === rowid);
+
+		console.log("edit", rowid, col, record);
+
+		try {
+			if (typeof rowid !== "number") {
+				throw new Error($t("plugin.browse-table.invalid-rowid"));
+			}
+			if (!record) {
+				throw new Error($t("plugin.browse-table.no-record"));
+			}
+			const res = await fetch(`/api/db/${database}/${table}/data/?rowid=${rowid}`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					...record,
+					_: undefined,
+				}),
+			});
+			const json = await res.json<typeof error>();
+			if (json) {
+				if ("error" in json) {
+					error = json;
+				} else {
+					error = undefined;
+				}
+			} else {
+				throw new Error($t("plugin.browse-table.no-result"));
+			}
+		} catch (err) {
+			error = {
+				error: {
+					message:
+						err instanceof Error
+							? err.message
+							: $t("plugin.browse-table.unknown-error"),
+				},
+			};
+			result = undefined;
+		} finally {
+			running = false;
+
+			const err = error;
+			await run();
+			error = err;
+		}
+	}
 </script>
 
 {#if result}
 	{#if result.length}
-		<div class="mt-4 overflow-x-auto transition-opacity" class:opacity-50={running}>
-			<table class="table-compact table w-full">
+		<div class="overflow-auto pt-4 transition-opacity" class:opacity-50={running}>
+			<table class="table-compact table min-w-full">
 				<thead>
 					<tr>
 						{#each cols as col}
-							<th class="normal-case">{col}</th>
+							<th
+								class="relative cursor-pointer normal-case"
+								on:click={() => change_sort(col)}
+							>
+								{col}
+								{#if order === col}
+									<span class="text-sm font-normal opacity-50">{dir}</span>
+								{/if}
+							</th>
 						{/each}
+						<th />
 					</tr>
 				</thead>
 				<tbody>
 					{#each result as row}
-						<tr class="hover">
-							{#each Object.values(row) as value}
-								<td>{value}</td>
+						<tr class="group hover">
+							{#each Object.keys(row) as key}
+								{#if key !== "_"}
+									<td>
+										{#if typeof row[key] === "number"}
+											<input
+												class="input-ghost input input-xs text-base transition-all hover:input-bordered"
+												type="number"
+												bind:value={row[key]}
+												on:blur={() => edit(row._, key)}
+											/>
+										{:else}
+											<input
+												class="input-ghost input input-xs text-base transition-all hover:input-bordered"
+												bind:value={row[key]}
+												on:change={() => edit(row._, key)}
+											/>
+										{/if}
+									</td>
+								{/if}
 							{/each}
+							<td>
+								<div
+									class="pointer-events-none flex items-center opacity-0 group-hover:pointer-events-auto group-hover:opacity-100"
+								>
+									<button
+										class="btn-outline btn-error btn-xs btn"
+										on:click={() => remove(row._)}
+									>
+										<Icon class="text-lg" icon="mdi:delete-outline" />
+									</button>
+								</div>
+							</td>
 						</tr>
 					{/each}
 				</tbody>
