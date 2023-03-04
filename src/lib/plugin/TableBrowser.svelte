@@ -14,6 +14,7 @@
 			?.columns.sort(({ cid: a }, { cid: b }) => a - b)
 			.map(({ name }) => name) || [];
 
+	let locked = true;
 	let offset = 0;
 	let limit = 20;
 	let order = "";
@@ -192,12 +193,26 @@
 	}
 </script>
 
+<div class="pb-2 pt-4">
+	<label class="swap">
+		<input type="checkbox" bind:checked={locked} />
+		<div class="swap-on flex items-center gap-2">
+			<Icon icon="mdi:lock-outline" class="inline-block text-xl" />
+			{$t("table-is-locked-click-to-unlock")}
+		</div>
+		<div class="swap-off flex items-center gap-2">
+			<Icon icon="mdi:lock-open-outline" class="inline-block text-xl" />
+			{$t("table-is-unlocked-click-to-lock")}
+		</div>
+	</label>
+</div>
+
 {#if result}
 	{#if result.length}
-		<div class="overflow-auto pt-4 transition-opacity" class:opacity-50={running}>
+		<div class="max-h-[80vh] overflow-auto transition-opacity" class:opacity-50={running}>
 			<table class="table-compact table min-w-full">
 				<thead>
-					<tr>
+					<tr class="sticky top-0 z-10 shadow">
 						{#each cols as col}
 							<th
 								class="relative cursor-pointer normal-case"
@@ -224,12 +239,14 @@
 												type="number"
 												bind:value={row[key]}
 												on:blur={() => edit(row._, key)}
+												disabled={locked || running}
 											/>
 										{:else}
 											<input
 												class="input-ghost input input-xs text-base transition-all hover:input-bordered"
 												bind:value={row[key]}
 												on:change={() => edit(row._, key)}
+												disabled={locked || running}
 											/>
 										{/if}
 									</td>
@@ -242,6 +259,7 @@
 									<button
 										class="btn-outline btn-error btn-xs btn"
 										on:click={() => remove(row._)}
+										disabled={locked || running}
 									>
 										<Icon class="text-lg" icon="mdi:delete-outline" />
 									</button>
@@ -261,7 +279,7 @@
 	<div class="flex items-center justify-between">
 		{#if offset > 0}
 			<button
-				class="btn-ghost btn"
+				class="btn-ghost btn-sm btn"
 				on:click={() => {
 					offset -= limit;
 					run();
@@ -272,7 +290,7 @@
 			</button>
 		{/if}
 
-		<p class="flex-grow-0 p-4">
+		<p class="flex-grow-0 px-4">
 			{$t("plugin.table-browser.showing", {
 				values: {
 					from: result.length ? offset + 1 : offset,
@@ -283,7 +301,7 @@
 
 		{#if result.length === limit}
 			<button
-				class="btn-ghost btn"
+				class="btn-ghost btn-sm btn"
 				on:click={() => {
 					offset += limit;
 					run();
