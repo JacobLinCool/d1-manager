@@ -108,7 +108,9 @@
 					{#each result.results as row}
 						<tr class="hover">
 							{#each Object.values(row) as value}
-								<td>{value}</td>
+								<td class="text-base-content" class:text-opacity-50={value === null}
+									>{value}</td
+								>
 							{/each}
 						</tr>
 					{/each}
