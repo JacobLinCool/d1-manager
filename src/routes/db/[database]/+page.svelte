@@ -34,7 +34,7 @@
 
 					<div>
 						<div class="overflow-x-auto">
-							<table class="table w-full">
+							<table class="table-compact table w-full">
 								<thead>
 									<tr>
 										<th>{$t("col-name")}</th>
@@ -55,7 +55,7 @@
 						</div>
 					</div>
 				</div>
-			</div></a
-		>
+			</div>
+		</a>
 	{/each}
 </div>

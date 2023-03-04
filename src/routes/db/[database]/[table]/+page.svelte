@@ -38,18 +38,16 @@
 <div class="flex w-full flex-col items-center justify-start gap-4">
 	<div class="card w-full">
 		<div class="card-body">
-			<div class="flex justify-between">
+			<div class="mb-4 flex justify-between">
 				<h2 class="card-title">{meta.name}</h2>
 				<div class="flex gap-2">
-					<button class="btn-outline btn-error btn-sm btn">Drop</button>
+					<!-- <button class="btn-outline btn-error btn-sm btn">Drop</button> -->
 				</div>
 			</div>
 
-			<div class="divider" />
-
 			<div>
 				<div class="overflow-x-auto">
-					<table class="table w-full">
+					<table class="table-compact table w-full">
 						<thead>
 							<tr>
 								<th>{$t("col-name")}</th>
