@@ -22,9 +22,9 @@
 			"success": "Success",
 			"value": "Value"
 		},
-		"browse-table": {
+		"table-browser": {
 			"invalid-rowid": "Invalid rowid",
-			"name": "Browse Table",
+			"name": "Table Browser",
 			"next": "Next",
 			"no-record": "No Record",
 			"no-result": "No Result",

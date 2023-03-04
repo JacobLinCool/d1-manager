@@ -62,7 +62,7 @@
 					error = undefined;
 				}
 			} else {
-				throw new Error($t("plugin.browse-table.no-result"));
+				throw new Error($t("plugin.table-browser.no-result"));
 			}
 		} catch (err) {
 			error = {
@@ -70,7 +70,7 @@
 					message:
 						err instanceof Error
 							? err.message
-							: $t("plugin.browse-table.unknown-error"),
+							: $t("plugin.table-browser.unknown-error"),
 				},
 			};
 			result = undefined;
@@ -99,7 +99,7 @@
 
 		try {
 			if (typeof rowid !== "number") {
-				throw new Error($t("plugin.browse-table.invalid-rowid"));
+				throw new Error($t("plugin.table-browser.invalid-rowid"));
 			}
 
 			const res = await fetch(`/api/db/${database}/${table}/data/?rowid=${rowid}`, {
@@ -114,7 +114,7 @@
 					error = undefined;
 				}
 			} else {
-				throw new Error($t("plugin.browse-table.no-result"));
+				throw new Error($t("plugin.table-browser.no-result"));
 			}
 		} catch (err) {
 			error = {
@@ -122,7 +122,7 @@
 					message:
 						err instanceof Error
 							? err.message
-							: $t("plugin.browse-table.unknown-error"),
+							: $t("plugin.table-browser.unknown-error"),
 				},
 			};
 			result = undefined;
@@ -147,10 +147,10 @@
 
 		try {
 			if (typeof rowid !== "number") {
-				throw new Error($t("plugin.browse-table.invalid-rowid"));
+				throw new Error($t("plugin.table-browser.invalid-rowid"));
 			}
 			if (!record) {
-				throw new Error($t("plugin.browse-table.no-record"));
+				throw new Error($t("plugin.table-browser.no-record"));
 			}
 			const res = await fetch(`/api/db/${database}/${table}/data/?rowid=${rowid}`, {
 				method: "PUT",
@@ -170,7 +170,7 @@
 					error = undefined;
 				}
 			} else {
-				throw new Error($t("plugin.browse-table.no-result"));
+				throw new Error($t("plugin.table-browser.no-result"));
 			}
 		} catch (err) {
 			error = {
@@ -178,7 +178,7 @@
 					message:
 						err instanceof Error
 							? err.message
-							: $t("plugin.browse-table.unknown-error"),
+							: $t("plugin.table-browser.unknown-error"),
 				},
 			};
 			result = undefined;
@@ -254,7 +254,7 @@
 		</div>
 	{:else}
 		<p class="mt-4">
-			{$t("plugin.browse-table.no-results")}
+			{$t("plugin.table-browser.no-results")}
 		</p>
 	{/if}
 
@@ -268,12 +268,12 @@
 				}}
 				disabled={running}
 			>
-				{$t("plugin.browse-table.prev")}
+				{$t("plugin.table-browser.prev")}
 			</button>
 		{/if}
 
 		<p class="flex-grow-0 p-4">
-			{$t("plugin.browse-table.showing", {
+			{$t("plugin.table-browser.showing", {
 				values: {
 					from: result.length ? offset + 1 : offset,
 					to: offset + result.length,
@@ -290,7 +290,7 @@
 				}}
 				disabled={running}
 			>
-				{$t("plugin.browse-table.next")}
+				{$t("plugin.table-browser.next")}
 			</button>
 		{/if}
 	</div>

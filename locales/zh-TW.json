@@ -22,9 +22,9 @@
 			"success": "新增成功",
 			"value": "值"
 		},
-		"browse-table": {
+		"table-browser": {
 			"invalid-rowid": "無效的定位 ID",
-			"name": "瀏覽表格",
+			"name": "表格瀏覽器",
 			"next": "下一頁",
 			"no-record": "無資料",
 			"no-result": "無資料",
