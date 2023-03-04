@@ -57,7 +57,7 @@
 	"see-github": "Checkout the usage and guide on GitHub",
 	"select-database": "Select Database",
 	"select-database-from-above": "Select a database from the top-right corner",
-	"show-first-10-records": "show first 10 records",
+	"show-first-10-records": "show first 10 records in {table}",
 	"suggestion-will-appear-here": "Generated SQL will appear here",
 	"table-is-locked-click-to-unlock": "Table is locked, click to unlock",
 	"table-is-unlocked-click-to-lock": "Table is unlocked, click to lock",

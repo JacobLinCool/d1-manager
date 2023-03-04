@@ -12,8 +12,13 @@
 			.find(({ name }) => name === table)
 			?.columns.sort(({ cid: a }, { cid: b }) => a - b)
 			.map(({ name, type }) => [name, type]) || [];
+	const others: [string, [string, string][]][] = data.db
+		.filter(
+			({ name }) => name !== table && !name.startsWith("sqlite_") && !name.startsWith("d1_"),
+		)
+		.map(({ name, columns }) => [name, columns.map(({ name, type }) => [name, type])]);
 
-	let query = $t("show-first-10-records");
+	let query = $t("show-first-10-records", { values: { table } });
 
 	let running = false;
 	let suggestion: string | undefined;
@@ -49,7 +54,7 @@
 		try {
 			const res = await fetch(`/api/plugin/semantic-query`, {
 				method: "POST",
-				body: JSON.stringify({ q: query, t: [[table, cols]] }),
+				body: JSON.stringify({ q: query, t: [[table, cols], ...others] }),
 			});
 
 			const json = await res.json<{ sql: string } | typeof error>();

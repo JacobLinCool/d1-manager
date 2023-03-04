@@ -36,6 +36,8 @@ Task: ${question}
 write a raw SQL, don't include comment or tag
 \`\`\`sql`;
 
+	console.log("prompt:", prompt);
+
 	const res = await fetch("https://api.openai.com/v1/completions", {
 		method: "POST",
 		headers: {

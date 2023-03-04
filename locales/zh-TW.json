@@ -57,7 +57,7 @@
 	"see-github": "在 GitHub 上查看使用說明",
 	"select-database": "選擇資料庫",
 	"select-database-from-above": "請從右上角選擇一個資料庫",
-	"show-first-10-records": "顯示前十筆資料",
+	"show-first-10-records": "顯示 {table} 裡前十筆資料",
 	"suggestion-will-appear-here": "產生的 SQL 語句將顯示在此",
 	"table-is-locked-click-to-unlock": "已鎖定，點擊啟用編輯",
 	"table-is-unlocked-click-to-lock": "已解鎖，點擊關閉編輯",
