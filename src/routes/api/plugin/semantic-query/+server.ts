@@ -26,10 +26,7 @@ export const POST: RequestHandler = async ({ request, fetch, platform, url }) =>
 	const prompt = `SQLite tables, with their properties:
 
 ${tables
-	.map(
-		([name, cols]) =>
-			`# ${name} (${cols.map(([name, type]) => `${name}: ${type}`).join(", ")})`,
-	)
+	.map(([name, cols]) => `${name} (${cols.map(([name, type]) => `${name}: ${type}`).join(", ")})`)
 	.join("\n")}
 
 Task: ${question}
