@@ -4,8 +4,15 @@
  */
 import { json, error } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
+import { dev } from "$app/environment";
 
-export const GET: RequestHandler = async ({ url, params, locals }) => {
+export const GET: RequestHandler = async ({ url, params, locals, fetch }) => {
+	if (dev) {
+		const remote = new URL("https://d1-manager.pages.dev" + url.pathname + url.search);
+		const res = await fetch(remote);
+		return json(await res.json());
+	}
+
 	const db = locals.db[params.database];
 	if (!db) {
 		throw error(404, "Database not found");
@@ -15,13 +22,15 @@ export const GET: RequestHandler = async ({ url, params, locals }) => {
 	const limit = Number(url.searchParams.get("limit")) || 100;
 	const order = url.searchParams.get("order") || "";
 	const dir = url.searchParams.get("dir") || "ASC";
+	const select = url.searchParams.get("select") || "*";
+	const where = url.searchParams.get("where") || "";
 
 	try {
 		const { results } = await db
 			.prepare(
-				`SELECT * FROM ${params.table} LIMIT ${limit} OFFSET ${offset} ${
-					order ? `ORDER BY ${order} ${dir}` : ""
-				}`,
+				`SELECT ${select} FROM ${params.table}${where ? ` WHERE ${where}` : ""}${
+					order ? ` ORDER BY ${order} ${dir}` : ""
+				} LIMIT ${limit} OFFSET ${offset}`,
 			)
 			.all();
 
@@ -76,6 +85,12 @@ export const POST: RequestHandler = async ({ request, params, locals }) => {
 };
 
 export const PUT: RequestHandler = async ({ url, request, params, locals }) => {
+	if (dev) {
+		const remote = new URL("https://d1-manager.pages.dev" + url.pathname + url.search);
+		const res = await fetch(remote, { method: "PUT", body: await request.text() });
+		return json(await res.json());
+	}
+
 	const db = locals.db[params.database];
 	if (!db) {
 		throw error(404, "Database not found");
@@ -95,7 +110,7 @@ export const PUT: RequestHandler = async ({ url, request, params, locals }) => {
 			.prepare(
 				`UPDATE ${params.table} SET ${Object.keys(data)
 					.map((key) => `${key} = ?`)
-					.join(", ")} WHERE ${Object.keys(where)} = ?`,
+					.join(", ")} WHERE ${where_sql(where)}`,
 			)
 			.bind(...Object.values(data), ...Object.values(where));
 		const result = await statement.run();
@@ -111,6 +126,12 @@ export const PUT: RequestHandler = async ({ url, request, params, locals }) => {
 };
 
 export const DELETE: RequestHandler = async ({ url, params, locals }) => {
+	if (dev) {
+		const remote = new URL("https://d1-manager.pages.dev" + url.pathname + url.search);
+		const res = await fetch(remote, { method: "DELETE" });
+		return json(await res.json());
+	}
+
 	const db = locals.db[params.database];
 	if (!db) {
 		throw error(404, "Database not found");
@@ -120,7 +141,7 @@ export const DELETE: RequestHandler = async ({ url, params, locals }) => {
 
 	try {
 		const statement = db
-			.prepare(`DELETE FROM ${params.table} WHERE ${Object.keys(where)} = ?`)
+			.prepare(`DELETE FROM ${params.table} WHERE ${where_sql(where)}`)
 			.bind(...Object.values(where));
 		const result = await statement.run();
 		return json(result);
@@ -133,3 +154,9 @@ export const DELETE: RequestHandler = async ({ url, params, locals }) => {
 		});
 	}
 };
+
+function where_sql(where: Record<string, unknown>): string {
+	return Object.keys(where)
+		.map((key) => `${key} = ?`)
+		.join(" AND ");
+}

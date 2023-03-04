@@ -6,62 +6,10 @@ import { dev } from "$app/environment";
 import { json, error } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
 
-export const GET: RequestHandler = async ({ params, locals }) => {
+export const GET: RequestHandler = async ({ params, locals, url, fetch }) => {
 	if (dev) {
-		return json([
-			{
-				name: "users",
-				columns: [
-					{
-						cid: 0,
-						name: "id",
-						type: "INTEGER",
-						notnull: 0,
-						dflt_value: null,
-						pk: 1,
-					},
-					{
-						cid: 1,
-						name: "username",
-						type: "TEXT",
-						notnull: 0,
-						dflt_value: null,
-						pk: 0,
-					},
-				],
-				count: 2,
-			},
-			{
-				name: "posts",
-				columns: [
-					{
-						cid: 0,
-						name: "id",
-						type: "INTEGER",
-						notnull: 0,
-						dflt_value: null,
-						pk: 1,
-					},
-					{
-						cid: 1,
-						name: "title",
-						type: "TEXT",
-						notnull: 0,
-						dflt_value: null,
-						pk: 0,
-					},
-					{
-						cid: 2,
-						name: "body",
-						type: "TEXT",
-						notnull: 0,
-						dflt_value: null,
-						pk: 0,
-					},
-				],
-				count: 10,
-			},
-		]);
+		const remote = new URL("https://d1-manager.pages.dev" + url.pathname + url.search);
+		return fetch(remote);
 	}
 
 	const db = locals.db[params.database];

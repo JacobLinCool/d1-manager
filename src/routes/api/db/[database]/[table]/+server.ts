@@ -4,8 +4,15 @@
  */
 import { json, error } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
+import { dev } from "$app/environment";
 
-export const GET: RequestHandler = async ({ params, locals }) => {
+export const GET: RequestHandler = async ({ params, locals, url, fetch }) => {
+	if (dev) {
+		const remote = new URL("https://d1-manager.pages.dev" + url.pathname + url.search);
+		const res = await fetch(remote);
+		return json(await res.json());
+	}
+
 	const db = locals.db[params.database];
 	if (!db) {
 		throw error(404, "Database not found");
