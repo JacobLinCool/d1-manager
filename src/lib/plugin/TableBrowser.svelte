@@ -217,6 +217,9 @@
 							<th
 								class="!relative cursor-pointer normal-case"
 								on:click={() => change_sort(col)}
+								title={$t("plugin.table-browser.click-to-sort-by", {
+									values: { col },
+								})}
 							>
 								{col}
 								{#if order === col}

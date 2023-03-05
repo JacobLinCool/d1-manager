@@ -11,8 +11,8 @@
 	"download": "下載",
 	"lang": {
 		"en": "英語",
-		"zh-TW": "正體中文",
-		"zh-CN": "簡體中文"
+		"zh-CN": "簡體中文",
+		"zh-TW": "正體中文"
 	},
 	"language": "語言",
 	"n-table-in-db": "{db} 中有 {n} 張表",
@@ -48,6 +48,7 @@
 			"unknown-error": "未知的錯誤"
 		},
 		"table-browser": {
+			"click-to-sort-by": "點擊以 {col} 排序",
 			"invalid-rowid": "無效的定位 ID",
 			"name": "表格瀏覽器",
 			"next": "下一頁",

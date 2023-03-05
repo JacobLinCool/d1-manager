@@ -11,8 +11,8 @@
 	"download": "Download",
 	"lang": {
 		"en": "English",
-		"zh-TW": "Traditional Chinese",
-		"zh-CN": "Simplified Chinese"
+		"zh-CN": "Simplified Chinese",
+		"zh-TW": "Traditional Chinese"
 	},
 	"language": "Language",
 	"n-table-in-db": "{n} tables in {db}",
@@ -48,6 +48,7 @@
 			"unknown-error": "Unknown error"
 		},
 		"table-browser": {
+			"click-to-sort-by": "Click to sort by {col}",
 			"invalid-rowid": "Invalid rowid",
 			"name": "Table Browser",
 			"next": "Next",
