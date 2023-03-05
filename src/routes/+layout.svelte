@@ -2,8 +2,10 @@
 	import { browser } from "$app/environment";
 	import { goto } from "$app/navigation";
 	import { page } from "$app/stores";
+	import { get } from "$lib/storage";
 	import { onMount } from "svelte";
-	import { t } from "svelte-i18n";
+	import { locale, t } from "svelte-i18n";
+	import { writable } from "svelte/store";
 	import { themeChange } from "theme-change";
 	import "../app.css";
 	import type { LayoutData } from "./$types";
@@ -16,8 +18,19 @@
 		}
 	}
 
+	let lang = writable<string | null | undefined>(undefined);
+
 	onMount(() => {
 		themeChange(false);
+		lang = get("lang", {
+			default_value: window.navigator.language,
+			ttl: 30 * 24 * 60 * 60 * 1000,
+		});
+		lang.subscribe((value) => {
+			if (value) {
+				locale.set(value);
+			}
+		});
 	});
 </script>
 

@@ -9,6 +9,11 @@
 	},
 	"d1-manager-manage-db": "使用 D1 Manager 管理 {db} 中的資料",
 	"download": "下載",
+	"lang": {
+		"en": "英語",
+		"zh-TW": "正體中文"
+	},
+	"language": "語言",
 	"n-table-in-db": "{db} 中有 {n} 張表",
 	"plugin": {
 		"add-record": {
@@ -50,6 +55,9 @@
 			"no-results": "沒有符合的結果",
 			"prev": "上一頁",
 			"showing": "顯示 {from} 至 {to} 筆資料",
+			"table-is-locked": "表格已鎖定，解鎖以對其進行編輯",
+			"table-is-locked-click-to-unlock": "已鎖定，點擊啟用編輯",
+			"table-is-unlocked-click-to-lock": "已解鎖，點擊關閉編輯",
 			"unknown-error": "未知錯誤"
 		}
 	},
@@ -59,7 +67,5 @@
 	"select-database-from-above": "請從右上角選擇一個資料庫",
 	"show-first-10-records": "顯示 {table} 裡前十筆資料",
 	"suggestion-will-appear-here": "產生的 SQL 語句將顯示在此",
-	"table-is-locked-click-to-unlock": "已鎖定，點擊啟用編輯",
-	"table-is-unlocked-click-to-lock": "已解鎖，點擊關閉編輯",
 	"theme": "主題"
 }

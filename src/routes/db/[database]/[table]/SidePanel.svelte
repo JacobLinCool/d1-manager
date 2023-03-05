@@ -2,20 +2,29 @@
 	import { onMount, onDestroy } from "svelte";
 	import type { PageData } from "./$types";
 	import { fly } from "svelte/transition";
+	import { browser } from "$app/environment";
 
 	export let data: PageData;
 
 	let show = false;
 
 	onMount(() => {
-		document.addEventListener("mousemove", move);
+		if (browser) {
+			document.addEventListener("mousemove", move);
+		}
 	});
 
 	onDestroy(() => {
-		document.removeEventListener("mousemove", move);
+		if (browser) {
+			document.removeEventListener("mousemove", move);
+		}
 	});
 
 	function move(evt: MouseEvent) {
+		if (!browser) {
+			return;
+		}
+
 		if (!show) {
 			show = evt.clientX >= window.innerWidth - 16;
 		} else {

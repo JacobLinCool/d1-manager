@@ -182,12 +182,12 @@
 	<div class="divider" />
 
 	{#if result.results.length}
-		<div class="overflow-x-auto">
+		<div class="max-h-[80vh] overflow-auto">
 			<table class="table-compact table w-full">
 				<thead>
-					<tr>
+					<tr class="sticky top-0 z-10 shadow">
 						{#each Object.keys(result.results[0]) as key}
-							<th class="normal-case">{key}</th>
+							<th class="!relative normal-case">{key}</th>
 						{/each}
 					</tr>
 				</thead>

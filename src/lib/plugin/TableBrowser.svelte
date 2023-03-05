@@ -198,11 +198,11 @@
 		<input type="checkbox" bind:checked={locked} />
 		<div class="swap-on flex items-center gap-2">
 			<Icon icon="mdi:lock-outline" class="inline-block text-xl" />
-			{$t("table-is-locked-click-to-unlock")}
+			{$t("plugin.table-browser.table-is-locked-click-to-unlock")}
 		</div>
 		<div class="swap-off flex items-center gap-2">
 			<Icon icon="mdi:lock-open-outline" class="inline-block text-xl" />
-			{$t("table-is-unlocked-click-to-lock")}
+			{$t("plugin.table-browser.table-is-unlocked-click-to-lock")}
 		</div>
 	</label>
 </div>
@@ -215,7 +215,7 @@
 					<tr class="sticky top-0 z-10 shadow">
 						{#each cols as col}
 							<th
-								class="relative cursor-pointer normal-case"
+								class="!relative cursor-pointer normal-case"
 								on:click={() => change_sort(col)}
 							>
 								{col}
@@ -235,18 +235,24 @@
 									<td>
 										{#if typeof row[key] === "number"}
 											<input
-												class="input-ghost input input-xs text-base transition-all hover:input-bordered"
+												class="input-ghost input input-xs text-base transition-all hover:input-bordered disabled:bg-transparent"
 												type="number"
 												bind:value={row[key]}
 												on:blur={() => edit(row._, key)}
 												disabled={locked || running}
+												title={locked
+													? $t("plugin.table-browser.table-is-locked")
+													: undefined}
 											/>
 										{:else}
 											<input
-												class="input-ghost input input-xs text-base transition-all hover:input-bordered"
+												class="input-ghost input input-xs text-base transition-all hover:input-bordered disabled:bg-transparent"
 												bind:value={row[key]}
 												on:change={() => edit(row._, key)}
 												disabled={locked || running}
+												title={locked
+													? $t("plugin.table-browser.table-is-locked")
+													: undefined}
 											/>
 										{/if}
 									</td>

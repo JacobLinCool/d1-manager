@@ -9,6 +9,11 @@
 	},
 	"d1-manager-manage-db": "Use D1 Manager to mange data in {db}",
 	"download": "Download",
+	"lang": {
+		"en": "English",
+		"zh-TW": "Traditional Chinese"
+	},
+	"language": "Language",
 	"n-table-in-db": "{n} tables in {db}",
 	"plugin": {
 		"add-record": {
@@ -50,6 +55,9 @@
 			"no-results": "No Matched Result",
 			"prev": "Previous",
 			"showing": "{from} ~ {to}",
+			"table-is-locked": "Table is locked, unlock to edit it",
+			"table-is-locked-click-to-unlock": "Table is locked, click to unlock",
+			"table-is-unlocked-click-to-lock": "Table is unlocked, click to lock",
 			"unknown-error": "Unknown Error"
 		}
 	},
@@ -59,7 +67,5 @@
 	"select-database-from-above": "Select a database from the top-right corner",
 	"show-first-10-records": "show first 10 records in {table}",
 	"suggestion-will-appear-here": "Generated SQL will appear here",
-	"table-is-locked-click-to-unlock": "Table is locked, click to unlock",
-	"table-is-unlocked-click-to-lock": "Table is unlocked, click to lock",
 	"theme": "Theme"
 }

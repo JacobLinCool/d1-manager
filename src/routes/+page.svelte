@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	import { t } from "svelte-i18n";
+	import { t, locales } from "svelte-i18n";
 	import { themeChange } from "theme-change";
+	import { get } from "$lib/storage";
+	import { writable } from "svelte/store";
 
 	const themes = [
 		"light",
@@ -35,8 +37,14 @@
 		"winter",
 	];
 
+	let lang = writable<string | null | undefined>(undefined);
+
 	onMount(() => {
 		themeChange(false);
+		lang = get("lang", {
+			default_value: window.navigator.language,
+			ttl: 30 * 24 * 60 * 60 * 1000,
+		});
 	});
 </script>
 
@@ -67,6 +75,17 @@
 			<select data-choose-theme id="theme-select" class="select-accent select">
 				{#each themes as theme}
 					<option value={theme}>{theme}</option>
+				{/each}
+			</select>
+		</div>
+
+		<div class="form-control w-full max-w-xs">
+			<label class="label" for="language-select">
+				<span class="label-text">{$t("language")}</span>
+			</label>
+			<select id="language-select" class="select-accent select" bind:value={$lang}>
+				{#each $locales as lang}
+					<option value={lang}>{$t(`lang.${lang}`)}</option>
 				{/each}
 			</select>
 		</div>

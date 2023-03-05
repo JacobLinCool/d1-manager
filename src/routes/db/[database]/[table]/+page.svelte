@@ -11,13 +11,13 @@
 	}
 
 	const plugins = {
-		[$t("plugin.table-browser.name")]: () => import("$lib/plugin/TableBrowser.svelte"),
-		[$t("plugin.run-query.name")]: () => import("$lib/plugin/RunQuery.svelte"),
-		[$t("plugin.semantic-query.name")]: () => import("$lib/plugin/SemanticQuery.svelte"),
-		[$t("plugin.add-record.name")]: () => import("$lib/plugin/AddRecord.svelte"),
+		["table-browser"]: () => import("$lib/plugin/TableBrowser.svelte"),
+		["run-query"]: () => import("$lib/plugin/RunQuery.svelte"),
+		["semantic-query"]: () => import("$lib/plugin/SemanticQuery.svelte"),
+		["add-record"]: () => import("$lib/plugin/AddRecord.svelte"),
 	};
 
-	let plugin: string | undefined;
+	let plugin: keyof typeof plugins | undefined;
 	let PluginComponent: ConstructorOfATypedSvelteComponent | undefined;
 	$: {
 		if (plugin) {
@@ -73,7 +73,7 @@
 
 			<select class="select-bordered select max-w-xs" bind:value={plugin}>
 				{#each Object.keys(plugins) as name}
-					<option value={name}>{name}</option>
+					<option value={name}>{$t(`plugin.${name}.name`)}</option>
 				{/each}
 			</select>
 
