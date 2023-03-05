@@ -5,6 +5,7 @@ const fallback = "en";
 
 register("en", () => import("$i18n/en.json"));
 register("zh-TW", () => import("$i18n/zh-TW.json"));
+register("zh-CN", () => import("$i18n/zh-CN.json"));
 
 init({
 	fallbackLocale: fallback,

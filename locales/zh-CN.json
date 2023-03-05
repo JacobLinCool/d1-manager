@@ -1,0 +1,72 @@
+{
+	"col-default": "预设值",
+	"col-name": "栏位",
+	"col-type": "型别",
+	"d1-manager": {
+		"description": "D1 Manager 是 Cloudflare D1 的 Web UI 和 API，Cloudflare D1 是一个无服务器 SQL 数据库。\n它提供了一个用户友好的界面来管理数据库、表格和记录，以及一个用于以编程方式执行操作的 API。 \nD1 Manager 简化了数据库管理，使用户能够专注于他们的数据。",
+		"name": "D1 Manager",
+		"short": "用于管理 Cloudflare D1 中数据的 Web UI。"
+	},
+	"d1-manager-manage-db": "使用 D1 Manager 管理 {db} 中的资料",
+	"download": "下载",
+	"lang": {
+		"en": "英语",
+		"zh-TW": "繁体中文",
+		"zh-CN": "简体中文"
+	},
+	"language": "语言",
+	"n-table-in-db": "{db} 中的 {n} 个表",
+	"plugin": {
+		"add-record": {
+			"add": "添加记录",
+			"column": "栏位",
+			"error": "错误",
+			"integer-is-required": "整数是必需的",
+			"n-ms": "{n} 毫秒",
+			"name": "添加记录",
+			"real-is-required": "需要实数",
+			"success": "成功",
+			"value": "值"
+		},
+		"run-query": {
+			"n-ms-m-changes": "花费 {n} 毫秒，{m} 笔资料更动",
+			"name": "运行 SQL 查询",
+			"no-result": "没有结果",
+			"no-results": "没有结果",
+			"run": "运行",
+			"unknown-error": "未知错误"
+		},
+		"semantic-query": {
+			"autorun-on-read-only-queries": "只读查询将自动运行。",
+			"n-ms-m-changes": "花费 {n} 毫秒，{m} 笔资料更动",
+			"name": "语义查询",
+			"no-result": "没有结果",
+			"no-results": "没有结果",
+			"requires-openai_api_key": "此插件需要设置 OPENAI_API_KEY 环境变量。",
+			"run": "运行",
+			"suggest": "编写语句",
+			"unknown-error": "未知错误"
+		},
+		"table-browser": {
+			"invalid-rowid": "行号无效",
+			"name": "表格浏览器",
+			"next": "下一页",
+			"no-record": "无记录",
+			"no-result": "没有结果",
+			"no-results": "无匹配结果",
+			"prev": "上一页",
+			"showing": "显示 {from} 至 {to} 笔资料",
+			"table-is-locked": "表格已锁定，解锁以对其进行编辑",
+			"table-is-locked-click-to-unlock": "已锁定，点击启用编辑",
+			"table-is-unlocked-click-to-lock": "已解锁，点击关闭编辑",
+			"unknown-error": "未知错误"
+		}
+	},
+	"rows": "行数",
+	"see-github": "在 GitHub 上查看使用说明",
+	"select-database": "选择数据库",
+	"select-database-from-above": "从右上角选择一个数据库",
+	"show-first-10-records": "显示 {table} 中的前 10 条记录",
+	"suggestion-will-appear-here": "生成的 SQL 会出现在这里",
+	"theme": "主题"
+}
