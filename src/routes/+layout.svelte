@@ -9,6 +9,7 @@
 	import { themeChange } from "theme-change";
 	import "../app.css";
 	import type { LayoutData } from "./$types";
+	import { preloadData } from "$app/navigation";
 
 	export let data: LayoutData;
 	let database = $page.params.database || "";
@@ -32,6 +33,16 @@
 			}
 		});
 	});
+
+	function preload() {
+		if (database) {
+			if (data.dbms.length > 1) {
+				preloadData(`/db/${database === data.dbms[0] ? data.dbms[1] : data.dbms[0]}`);
+			}
+		} else if (data.dbms[0]) {
+			preloadData(`/db/${data.dbms[0]}`);
+		}
+	}
 </script>
 
 <div class="flex h-full w-full flex-col">
@@ -44,7 +55,11 @@
 			>
 		</div>
 		<div class="flex-none">
-			<select class="select-bordered select select-sm w-full max-w-xs" bind:value={database}>
+			<select
+				class="select-bordered select select-sm w-full max-w-xs"
+				bind:value={database}
+				on:click={preload}
+			>
 				<option value="" disabled selected>{$t("select-database")}</option>
 				{#each data.dbms as db}
 					<option value={db}>{db}</option>

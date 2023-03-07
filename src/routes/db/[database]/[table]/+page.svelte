@@ -26,6 +26,12 @@
 			});
 		}
 	}
+
+	function preload_plugins() {
+		Object.values(plugins).forEach((importer) => {
+			importer();
+		});
+	}
 </script>
 
 <svelte:head>
@@ -71,7 +77,11 @@
 
 			<div class="divider" />
 
-			<select class="select-bordered select max-w-xs" bind:value={plugin}>
+			<select
+				class="select-bordered select max-w-xs"
+				bind:value={plugin}
+				on:click={preload_plugins}
+			>
 				{#each Object.keys(plugins) as name}
 					<option value={name}>{$t(`plugin.${name}.name`)}</option>
 				{/each}
