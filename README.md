@@ -34,6 +34,10 @@ Some plugins (e.g. Semantic Query) require additional environment variables to b
 
 ![set-env-var](./images/set-env-var.png)
 
+Also, there are some configuration options that can be set through environment variables.
+
+- `SHOW_INTERNAL_TABLES`: Show internal tables (`splite_*` and `d1_*`) in the UI.
+
 ## Screenshots
 
 ![tables](./images/tables.png)
