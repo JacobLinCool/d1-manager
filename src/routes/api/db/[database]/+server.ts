@@ -6,7 +6,7 @@ import { dev } from "$app/environment";
 import { json, error } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
 
-export const GET: RequestHandler = async ({ params, locals, url, fetch }) => {
+export const GET: RequestHandler = async ({ params, locals, url, fetch, platform }) => {
 	if (dev) {
 		const remote = new URL("https://d1-manager.pages.dev" + url.pathname + url.search);
 		return fetch(remote);
@@ -30,7 +30,12 @@ export const GET: RequestHandler = async ({ params, locals, url, fetch }) => {
 		if (!tables.results) {
 			throw error(404, "No tables found");
 		}
-		const results = tables.results;
+		const results = tables.results.filter(({ name }) => {
+			if (name.startsWith("sqlite_") || name.startsWith("d1_")) {
+				return !!platform?.env.SHOW_INTERNAL_TABLES;
+			}
+			return true;
+		});
 
 		const _columns = db.batch(
 			results.map(({ name }) => {
@@ -47,31 +52,29 @@ export const GET: RequestHandler = async ({ params, locals, url, fetch }) => {
 		const columns = (await _columns).map(({ results }) => results);
 		const count = (await _count).map(({ results }) => results?.[0].c);
 
-		return json(
-			results
-				.map(({ name }, i) => ({
-					name,
-					columns: columns[i],
-					count: count[i],
-				}))
-				.sort(({ name: a }, { name: b }) => {
-					if (a.startsWith("sqlite_") && !b.startsWith("sqlite_")) {
-						return 1;
-					} else if (!a.startsWith("sqlite_") && b.startsWith("sqlite_")) {
-						return -1;
-					}
+		const response = results
+			.map(({ name }, i) => ({
+				name,
+				columns: columns[i],
+				count: count[i],
+			}))
+			.sort(({ name: a }, { name: b }) => {
+				if (a.startsWith("sqlite_") && !b.startsWith("sqlite_")) {
+					return 1;
+				} else if (!a.startsWith("sqlite_") && b.startsWith("sqlite_")) {
+					return -1;
+				}
 
-					if (a.startsWith("d1_") && !b.startsWith("d1_")) {
-						return 1;
-					} else if (!a.startsWith("d1_") && b.startsWith("d1_")) {
-						return -1;
-					}
+				if (a.startsWith("d1_") && !b.startsWith("d1_")) {
+					return 1;
+				} else if (!a.startsWith("d1_") && b.startsWith("d1_")) {
+					return -1;
+				}
 
-					return a
-						.replace(/^(d1|sqlite)_/, "")
-						.localeCompare(b.replace(/^(d1|sqlite)_/, ""));
-				}),
-		);
+				return a.replace(/^(d1|sqlite)_/, "").localeCompare(b.replace(/^(d1|sqlite)_/, ""));
+			});
+
+		return json(response);
 	} catch (err: any) {
 		return json({
 			error: {

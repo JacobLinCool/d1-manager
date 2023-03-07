@@ -8,7 +8,10 @@ declare global {
 		}
 		// interface PageData {}
 		interface Platform {
-			env: Record<string, Fetcher | string>;
+			env: {
+				SHOW_INTERNAL_TABLES?: string;
+				OPENAI_API_KEY?: string;
+			} & Record<string, Fetcher | string>;
 		}
 	}
 }
