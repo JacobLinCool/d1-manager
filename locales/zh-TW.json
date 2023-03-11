@@ -28,6 +28,17 @@
 			"success": "新增成功",
 			"value": "值"
 		},
+		"csv": {
+			"export": "匯出",
+			"export-csv": "匯出 CSV",
+			"import": "匯入",
+			"import-csv": "匯入 CSV",
+			"invalid-column-name-key": "無效的欄位：{key}",
+			"n-ms-m-changes": "花費 {n} 毫秒，{m} 筆資料更動",
+			"name": "CSV 匯入與匯出",
+			"no-result": "沒有結果",
+			"select-a-csv-file": "選擇 CSV 文件"
+		},
 		"run-query": {
 			"n-ms-m-changes": "花費 {n} 毫秒，{m} 筆資料更動",
 			"name": "執行 SQL 查詢",

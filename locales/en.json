@@ -28,6 +28,17 @@
 			"success": "Success",
 			"value": "Value"
 		},
+		"csv": {
+			"export": "Export",
+			"export-csv": "Export CSV",
+			"import": "Import",
+			"import-csv": "Import CSV",
+			"invalid-column-name-key": "Invalid column name: {key}",
+			"n-ms-m-changes": "{n} ms, {m} changes",
+			"name": "CSV Importer and Exporter",
+			"no-result": "No Result",
+			"select-a-csv-file": "Select a CSV file"
+		},
 		"run-query": {
 			"n-ms-m-changes": "{n} ms, {m} changes",
 			"name": "Run SQL Query",
