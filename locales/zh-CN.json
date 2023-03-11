@@ -28,6 +28,17 @@
 			"success": "成功",
 			"value": "值"
 		},
+		"csv": {
+			"export": "导出",
+			"export-csv": "导出 CSV",
+			"import": "导入",
+			"import-csv": "导入 CSV",
+			"invalid-column-name-key": "无效的列名：{key}",
+			"n-ms-m-changes": "花费 {n} 毫秒，{m} 笔资料更动",
+			"name": "CSV 导入和导出",
+			"no-result": "没有结果",
+			"select-a-csv-file": "选择 CSV 文件"
+		},
 		"run-query": {
 			"n-ms-m-changes": "花费 {n} 毫秒，{m} 笔资料更动",
 			"name": "运行 SQL 查询",

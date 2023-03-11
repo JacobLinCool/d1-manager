@@ -13,6 +13,8 @@ specifiers:
     "@typescript-eslint/eslint-plugin": ^5.54.0
     "@typescript-eslint/parser": ^5.54.0
     autoprefixer: ^10.4.13
+    csv-parse: ^5.3.6
+    csv-stringify: ^6.3.0
     daisyui: ^2.51.2
     eslint: ^8.35.0
     eslint-config-prettier: ^8.6.0
@@ -49,6 +51,8 @@ devDependencies:
     "@typescript-eslint/eslint-plugin": 5.54.0_6mj2wypvdnknez7kws2nfdgupi
     "@typescript-eslint/parser": 5.54.0_ycpbpc6yetojsgtrx3mwntkhsu
     autoprefixer: 10.4.13_postcss@8.4.21
+    csv-parse: 5.3.6
+    csv-stringify: 6.3.0
     daisyui: 2.51.2_gbtt6ss3tbiz4yjtvdr6fbrj44
     eslint: 8.35.0
     eslint-config-prettier: 8.6.0_eslint@8.35.0
@@ -2712,10 +2716,24 @@ packages:
             }
         dev: true
 
+    /csv-parse/5.3.6:
+        resolution:
+            {
+                integrity: sha512-WI330GjCuEioK/ii8HM2YE/eV+ynpeLvU+RXw4R8bRU8R0laK5zO3fDsc4gH8s472e3Ga38rbIjCAiQh+tEHkw==,
+            }
+        dev: true
+
     /csv-stringify/5.6.5:
         resolution:
             {
                 integrity: sha512-PjiQ659aQ+fUTQqSrd1XEDnOr52jh30RBurfzkscaE2tPaFsDH5wOAHJiw8XAHphRknCwMUE9KRayc4K/NbO8A==,
+            }
+        dev: true
+
+    /csv-stringify/6.3.0:
+        resolution:
+            {
+                integrity: sha512-kTnnBkkLmAR1G409aUdShppWUClNbBQZXhrKrXzKYBGw4yfROspiFvVmjbKonCrdGfwnqwMXKLQG7ej7K/jwjg==,
             }
         dev: true
 
