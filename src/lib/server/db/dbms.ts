@@ -10,7 +10,7 @@ export function DBMS(env: Record<string, Fetcher | string>): Record<string, D1Da
 		if (typeof e === "string") {
 			continue;
 		}
-		const db = new D1Database(e);
+		const db = "fetch" in e ? new D1Database(e) : e;
 		results[k.replace(/^(__D1_BETA__)?DB_?/, "") || "default"] = db;
 	}
 	return results;
