@@ -1,9 +1,61 @@
 <script lang="ts">
+	import { invalidateAll } from "$app/navigation";
 	import { page } from "$app/stores";
+	import { is_dangerous } from "$lib/sql";
 	import { t } from "svelte-i18n";
 	import type { PageData } from "./$types";
 
 	export let data: PageData;
+
+	let query = "";
+	$: danger = is_dangerous(query);
+
+	function handler(evt: KeyboardEvent) {
+		if (evt.code === "Enter" && evt.shiftKey === true && query) {
+			run();
+		}
+	}
+
+	let running = false;
+	let duration: number | undefined;
+	let error = "";
+	async function run() {
+		if (running) {
+			return;
+		}
+		running = true;
+
+		try {
+			const q = query
+				.split(";")
+				.filter((q) => q.trim())
+				.map((q) => q.replace(/\n/g, " "))
+				.join("\n");
+			const res = await fetch(`/api/db/${$page.params.database}/exec`, {
+				method: "POST",
+				body: JSON.stringify({ query: q }),
+			});
+
+			const json = await res.json<any>();
+			if (json) {
+				if ("error" in json) {
+					error = json?.error?.cause || json?.error?.message;
+					duration = undefined;
+				} else {
+					duration = json.duration;
+					error = "";
+					await invalidateAll();
+				}
+			} else {
+				throw new Error("Unknown");
+			}
+		} catch (err) {
+			error = err instanceof Error ? err.message : "Unknown";
+			duration = undefined;
+		} finally {
+			running = false;
+		}
+	}
 </script>
 
 <svelte:head>
@@ -15,6 +67,39 @@
 </svelte:head>
 
 <div class="flex w-full flex-col items-center justify-start gap-4 p-4">
+	<div class="card-bordered card w-full">
+		<div class="card-body">
+			<div class="input-group">
+				<textarea
+					class="textarea-bordered textarea h-10 flex-1 resize-y !rounded-l-lg font-mono transition-colors focus:textarea-primary"
+					class:!outline-error={danger}
+					placeholder="Execute SQL query in database {$page.params.database}"
+					bind:value={query}
+					on:keypress={handler}
+					disabled={running}
+				/>
+				{#if query}
+					<button
+						class="btn-primary btn h-auto min-w-[6rem]"
+						class:btn-error={danger}
+						on:click={run}
+						disabled={running}
+					>
+						Execute
+					</button>
+				{/if}
+			</div>
+
+			{#if error}
+				<div class="mt-2 text-error">{error}</div>
+			{:else if duration}
+				<div class="mt-2 text-sm">
+					{$t("n-ms", { values: { n: duration.toFixed(2) } })}
+				</div>
+			{/if}
+		</div>
+	</div>
+
 	{#each data.db as table}
 		<a class="w-full" href="/db/{$page.params.database}/{table.name}">
 			<div

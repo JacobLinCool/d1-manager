@@ -15,6 +15,7 @@
 		"zh-TW": "繁体中文"
 	},
 	"language": "语言",
+	"n-ms": "花费 {n} 毫秒",
 	"n-table-in-db": "{db} 中的 {n} 个表",
 	"plugin": {
 		"add-record": {

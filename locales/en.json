@@ -15,6 +15,7 @@
 		"zh-TW": "Traditional Chinese"
 	},
 	"language": "Language",
+	"n-ms": "{n} ms",
 	"n-table-in-db": "{n} tables in {db}",
 	"plugin": {
 		"add-record": {
