@@ -1,6 +1,6 @@
 import { json } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
-import type { CreateCompletionResponse } from "openai";
+import type { CreateChatCompletionResponse, ChatCompletionRequestMessage } from "openai";
 import { dev } from "$app/environment";
 
 export const POST: RequestHandler = async ({ request, fetch, platform, url }) => {
@@ -23,27 +23,30 @@ export const POST: RequestHandler = async ({ request, fetch, platform, url }) =>
 	const question = data.q || "show first 10 records in the table";
 	const tables = data.t;
 
-	const prompt = `SQLite tables, with their properties:
+	const system = `SQLite tables, with their properties:
 
 ${tables
 	.map(([name, cols]) => `${name} (${cols.map(([name, type]) => `${name}: ${type}`).join(", ")})`)
 	.join("\n")}
 
-Task: ${question}
-write a raw SQL, don't include comment or tag
-\`\`\`sql`;
+write a raw SQL, don't include comment or tag`;
 
-	console.log("prompt:", prompt);
+	const messages: ChatCompletionRequestMessage[] = [
+		{ role: "system", content: system },
+		{ role: "user", content: question },
+	];
 
-	const res = await fetch("https://api.openai.com/v1/completions", {
+	console.log("messages:", messages);
+
+	const res = await fetch("https://api.openai.com/v1/chat/completions", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 			Authorization: `Bearer ${OPENAI_API_KEY}`,
 		},
 		body: JSON.stringify({
-			model: "code-davinci-002",
-			prompt,
+			model: "gpt-3.5-turbo",
+			messages,
 			temperature: 0.2,
 			max_tokens: 300,
 			top_p: 1,
@@ -53,10 +56,11 @@ write a raw SQL, don't include comment or tag
 		}),
 	});
 
-	const { choices } = await res.json<CreateCompletionResponse>();
-	console.log("code completion:", choices[0].text);
+	const { choices, usage } = await res.json<CreateChatCompletionResponse>();
+	console.log("reply:", choices[0].message?.content);
+	console.log("usage:", usage);
 
 	return json({
-		sql: choices[0].text?.replace(/```(sql)?/g, "").trim(),
+		sql: choices[0].message?.content?.replace(/```(sql)?/g, "").trim(),
 	});
 };
