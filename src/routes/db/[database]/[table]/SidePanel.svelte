@@ -3,6 +3,7 @@
 	import type { PageData } from "./$types";
 	import { fly } from "svelte/transition";
 	import { browser } from "$app/environment";
+	import { page } from "$app/stores";
 
 	export let data: PageData;
 
@@ -44,7 +45,9 @@
 			<div class="w-full p-4">
 				{#each data.db as table, i}
 					<div class="w-full">
-						<p class="text-xl">{table.name}</p>
+						<a class="text-xl" href={`/db/${$page.params.database}/${table.name}`}>
+							{table.name}
+						</a>
 
 						<div class="pl-4">
 							{#each table.columns as column}

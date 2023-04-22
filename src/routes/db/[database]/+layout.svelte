@@ -33,6 +33,8 @@
 		</div>
 	</div>
 	<div class="w-full flex-1 overflow-y-auto">
-		<slot />
+		{#key $page.params.table}
+			<slot />
+		{/key}
 	</div>
 </div>
