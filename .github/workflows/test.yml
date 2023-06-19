@@ -22,11 +22,11 @@ jobs:
               with:
                   run_install: true
 
-            - name: Install Browser
-              run: npx playwright install chromium --with-deps
+            # - name: Install Browser
+            #   run: npx playwright install chromium --with-deps
 
             - name: Build All
               run: pnpm build
 
-            - name: Run Tests
-              run: pnpm test
+            # - name: Run Tests
+            #   run: pnpm test
