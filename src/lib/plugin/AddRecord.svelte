@@ -155,7 +155,7 @@
 
 <table class="table">
 	<thead>
-		<tr>
+		<tr class="bg-base-200">
 			<th class="w-40">{$t("plugin.add-record.column")}</th>
 			<th>{$t("plugin.add-record.value")}</th>
 		</tr>

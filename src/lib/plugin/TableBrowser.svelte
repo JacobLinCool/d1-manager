@@ -210,9 +210,9 @@
 {#if result}
 	{#if result.length}
 		<div class="max-h-[80vh] overflow-auto transition-opacity" class:opacity-50={running}>
-			<table class="table-compact table min-w-full">
+			<table class="table-sm table min-w-full">
 				<thead>
-					<tr class="sticky top-0 z-10 shadow">
+					<tr class="sticky top-0 z-10 bg-base-200 shadow">
 						{#each cols as col}
 							<th
 								class="!relative cursor-pointer normal-case"

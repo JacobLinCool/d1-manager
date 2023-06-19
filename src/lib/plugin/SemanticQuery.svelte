@@ -184,9 +184,9 @@
 
 	{#if result.results.length}
 		<div class="max-h-[80vh] overflow-auto">
-			<table class="table-compact table w-full">
+			<table class="table-sm table w-full">
 				<thead>
-					<tr class="sticky top-0 z-10 shadow">
+					<tr class="sticky top-0 z-10 bg-base-200 shadow">
 						{#each Object.keys(result.results[0]) as key}
 							<th class="!relative normal-case">{key}</th>
 						{/each}

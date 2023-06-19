@@ -55,7 +55,7 @@
 
 			<div>
 				<div class="overflow-x-auto">
-					<table class="table-compact table w-full">
+					<table class="table-sm table w-full bg-base-200">
 						<thead>
 							<tr>
 								<th>{$t("col-name")}</th>
