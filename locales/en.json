@@ -41,6 +41,7 @@
 			"select-a-csv-file": "Select a CSV file"
 		},
 		"run-query": {
+			"export": "Export",
 			"n-ms-m-changes": "{n} ms, {m} changes",
 			"name": "Run SQL Query",
 			"no-result": "No result",
@@ -50,6 +51,7 @@
 		},
 		"semantic-query": {
 			"autorun-on-read-only-queries": "Readonly query will be run automatically.",
+			"export": "Export",
 			"n-ms-m-changes": "{n} ms, {m} changes",
 			"name": "Semantic Query",
 			"no-result": "No result",

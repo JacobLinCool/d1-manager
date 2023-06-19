@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { t } from "svelte-i18n";
 	import { is_dangerous } from "../sql";
+	import { export_csv } from "$lib/csv";
 
 	export let database: string;
 	export let table: string;
@@ -123,14 +124,24 @@
 		</p>
 	{/if}
 
-	<p class="mt-2 text-sm opacity-70">
-		{$t("plugin.run-query.n-ms-m-changes", {
-			values: {
-				n: result.meta.duration.toFixed(2),
-				m: result.meta.changes,
-			},
-		})}
-	</p>
+	<div class="mt-2 flex w-full justify-between gap-2 space-x-2">
+		<p class="text-sm opacity-70">
+			{$t("plugin.run-query.n-ms-m-changes", {
+				values: {
+					n: result.meta.duration.toFixed(2),
+					m: result.meta.changes,
+				},
+			})}
+		</p>
+		{#if result?.results.length}
+			<button
+				class="btn-primary btn-outline btn-sm btn"
+				on:click={() => (result ? export_csv(result.results, table) : undefined)}
+			>
+				{$t("plugin.run-query.export")}
+			</button>
+		{/if}
+	</div>
 {/if}
 
 {#if error}

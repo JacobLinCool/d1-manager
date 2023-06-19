@@ -41,6 +41,7 @@
 			"select-a-csv-file": "选择 CSV 文件"
 		},
 		"run-query": {
+			"export": "导出",
 			"n-ms-m-changes": "花费 {n} 毫秒，{m} 笔资料更动",
 			"name": "运行 SQL 查询",
 			"no-result": "没有结果",
@@ -50,6 +51,7 @@
 		},
 		"semantic-query": {
 			"autorun-on-read-only-queries": "只读查询将自动运行。",
+			"export": "导出",
 			"n-ms-m-changes": "花费 {n} 毫秒，{m} 笔资料更动",
 			"name": "语义查询",
 			"no-result": "没有结果",

@@ -2,6 +2,7 @@
 	import { t } from "svelte-i18n";
 	import type { PluginData } from "./type";
 	import { is_dangerous, is_readonly } from "../sql";
+	import { export_csv } from "$lib/csv";
 
 	export let database: string;
 	export let table: string;
@@ -148,7 +149,7 @@
 		/>
 
 		<button
-			class="btn-outline btn-primary btn h-auto min-w-[6rem]"
+			class="btn-primary btn-outline btn h-auto min-w-[6rem]"
 			on:click={suggest}
 			disabled={running}
 		>
@@ -210,14 +211,24 @@
 		</p>
 	{/if}
 
-	<p class="mt-2 text-sm opacity-70">
-		{$t("plugin.semantic-query.n-ms-m-changes", {
-			values: {
-				n: result.meta.duration.toFixed(2),
-				m: result.meta.changes,
-			},
-		})}
-	</p>
+	<div class="mt-2 flex w-full justify-between gap-2 space-x-2">
+		<p class="text-sm opacity-70">
+			{$t("plugin.semantic-query.n-ms-m-changes", {
+				values: {
+					n: result.meta.duration.toFixed(2),
+					m: result.meta.changes,
+				},
+			})}
+		</p>
+		{#if result?.results.length}
+			<button
+				class="btn-primary btn-outline btn-sm btn"
+				on:click={() => (result ? export_csv(result.results, table) : undefined)}
+			>
+				{$t("plugin.semantic-query.export")}
+			</button>
+		{/if}
+	</div>
 {/if}
 
 {#if error}
