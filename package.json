@@ -70,5 +70,6 @@
 	"homepage": "https://github.com/JacobLinCool/d1-manager",
 	"bugs": {
 		"url": "https://github.com/JacobLinCool/d1-manager/issues"
-	}
+	},
+	"packageManager": "pnpm@8.6.2"
 }
