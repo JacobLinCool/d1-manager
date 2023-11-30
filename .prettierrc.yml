@@ -15,9 +15,9 @@ overrides:
           parser: svelte
 
 plugins:
-    - ./node_modules/@trivago/prettier-plugin-sort-imports/lib/src/index.js
-    - ./node_modules/prettier-plugin-svelte/plugin.js
-    - ./node_modules/prettier-plugin-tailwindcss/dist/index.js
+    - prettier-plugin-organize-imports
+    - prettier-plugin-tailwindcss
+    - prettier-plugin-svelte
 pluginSearchDirs: false
 
 importOrder:
