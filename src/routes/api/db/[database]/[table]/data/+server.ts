@@ -2,9 +2,9 @@
  * This route reports the data in a table.
  * It also allows inserting, updating, and deleting data.
  */
-import { json, error } from "@sveltejs/kit";
-import type { RequestHandler } from "./$types";
 import { dev } from "$app/environment";
+import { error, json } from "@sveltejs/kit";
+import type { RequestHandler } from "./$types";
 
 export const GET: RequestHandler = async ({ url, params, locals, fetch }) => {
 	if (dev) {

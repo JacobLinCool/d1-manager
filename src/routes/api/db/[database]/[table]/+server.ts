@@ -2,9 +2,9 @@
  * This route reports the metadata of a table.
  * It also allows deleting a table.
  */
-import { json, error } from "@sveltejs/kit";
-import type { RequestHandler } from "./$types";
 import { dev } from "$app/environment";
+import { error, json } from "@sveltejs/kit";
+import type { RequestHandler } from "./$types";
 
 export const GET: RequestHandler = async ({ params, locals, url, fetch }) => {
 	if (dev) {

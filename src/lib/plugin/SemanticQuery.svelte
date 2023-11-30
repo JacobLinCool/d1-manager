@@ -139,9 +139,9 @@
 </p>
 
 <div class="form-control w-full">
-	<div class="input-group">
+	<div class="join">
 		<textarea
-			class="textarea-bordered textarea h-12 flex-1 resize-y font-sans"
+			class="textarea-bordered textarea h-12 flex-1 resize-y font-sans join-item"
 			placeholder={$t("show-first-10-records")}
 			bind:value={query}
 			on:keypress={suggest_handler}
@@ -149,7 +149,7 @@
 		/>
 
 		<button
-			class="btn-primary btn-outline btn h-auto min-w-[6rem]"
+			class="btn-primary btn-outline btn h-auto min-w-[6rem] join-item"
 			on:click={suggest}
 			disabled={running}
 		>
@@ -159,9 +159,9 @@
 </div>
 
 <div class="form-control w-full">
-	<div class="input-group">
+	<div class="join">
 		<textarea
-			class="textarea-bordered textarea h-16 flex-1 resize-y font-mono"
+			class="textarea-bordered textarea h-16 flex-1 resize-y font-mono join-item"
 			placeholder={$t("suggestion-will-appear-here")}
 			bind:value={suggestion}
 			on:keypress={run_handler}
@@ -169,7 +169,7 @@
 		/>
 
 		<button
-			class="btn-primary btn h-auto min-w-[6rem]"
+			class="btn-primary btn h-auto min-w-[6rem] join-item"
 			class:btn-error={danger}
 			on:click={run}
 			disabled={running}

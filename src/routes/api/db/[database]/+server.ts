@@ -3,7 +3,7 @@
  * It also allows creating new tables.
  */
 import { dev } from "$app/environment";
-import { json, error } from "@sveltejs/kit";
+import { error, json } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
 
 export const GET: RequestHandler = async ({ params, locals, url, fetch, platform }) => {

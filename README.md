@@ -6,16 +6,14 @@ D1 Manager is a web UI and API for Cloudflare D1, a serverless SQL database. It 
 
 ## Features
 
-- [x] Multiple D1 Databases
-- [x] List all tables in a database
-- [x] Show table schema
-- [x] Run SQL queries
-- [x] Run Semantic Queries (with `OPENAI_API_KEY` env var set)
-- [ ] Create new table through UI
-- [x] Edit table data through UI
-- [ ] Custom SQL scripts
-- [x] I18n support (English, Chinese) [add more](./locales/)
-- [x] API support (see [routes/api](./src/routes/api/) for details)
+-   [x] Multiple D1 Databases
+-   [x] List all tables in a database
+-   [x] Show table schema
+-   [x] Run SQL queries
+-   [x] Run Semantic Queries (with `OPENAI_API_KEY` env var set)
+-   [x] Edit table data through UI
+-   [x] I18n support (English, Chinese) [add more](./locales/)
+-   [x] API support (see [routes/api](./src/routes/api/) for details)
 
 ## Setup
 
@@ -36,7 +34,9 @@ Some plugins (e.g. Semantic Query) require additional environment variables to b
 
 Also, there are some configuration options that can be set through environment variables.
 
-- `SHOW_INTERNAL_TABLES`: Show internal tables (`splite_*` and `d1_*`) in the UI.
+-   `SHOW_INTERNAL_TABLES`: Show internal tables (`splite_*` and `d1_*`) in the UI.
+-   `OPENAI_API_KEY`: OpenAI API key for Semantic Query.
+-   `OPENAI_API_URL`: You may use this with Cloudflare AI Gateway to proxy requests to OpenAI API.
 
 ## Screenshots
 
@@ -50,4 +50,4 @@ Also, there are some configuration options that can be set through environment v
 
 ![semantic-query](./images/semantic-query.png)
 
-> Semantic Query uses OpenAI Codex to translate natural language queries into SQL.
+> Semantic Query uses OpenAI GPT-3.5 Turbo to translate natural language queries into SQL.

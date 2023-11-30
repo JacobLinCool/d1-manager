@@ -69,9 +69,9 @@
 <div class="flex w-full flex-col items-center justify-start gap-4 p-4">
 	<div class="card-bordered card w-full">
 		<div class="card-body">
-			<div class="input-group">
+			<div class="join">
 				<textarea
-					class="textarea-bordered textarea h-10 flex-1 resize-y !rounded-l-lg font-mono transition-colors focus:textarea-primary"
+					class="textarea-bordered textarea h-10 flex-1 resize-y !rounded-l-lg font-mono transition-colors focus:textarea-primary join-item"
 					class:!outline-error={danger}
 					placeholder="Execute SQL query in database {$page.params.database}"
 					bind:value={query}
@@ -80,7 +80,7 @@
 				/>
 				{#if query}
 					<button
-						class="btn-primary btn h-auto min-w-[6rem]"
+						class="btn-primary btn h-auto min-w-[6rem] join-item"
 						class:btn-error={danger}
 						on:click={run}
 						disabled={running}
