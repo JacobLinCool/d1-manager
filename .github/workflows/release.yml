@@ -18,7 +18,7 @@ jobs:
             pull-requests: write
         steps:
             - name: Checkout Repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
 
             - name: Setup PNPM
               uses: pnpm/action-setup@v2.2.4
