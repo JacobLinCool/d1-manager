@@ -1,6 +1,6 @@
 import { DBMS } from "$lib/server/db/dbms";
-import { locale, waitLocale } from "svelte-i18n";
 import type { Handle, HandleServerError } from "@sveltejs/kit";
+import { locale, waitLocale } from "svelte-i18n";
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const lang = event.request.headers.get("accept-language")?.split(",")[0] || "en";

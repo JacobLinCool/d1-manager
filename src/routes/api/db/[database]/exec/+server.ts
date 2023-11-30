@@ -1,5 +1,5 @@
 import { dev } from "$app/environment";
-import { json, error } from "@sveltejs/kit";
+import { error, json } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
 
 export const POST: RequestHandler = async ({ request, params, locals, url, fetch }) => {
