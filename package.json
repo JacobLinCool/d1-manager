@@ -28,7 +28,7 @@
 		"@iconify/svelte": "^3.1.4",
 		"@playwright/test": "^1.40.1",
 		"@sveltejs/adapter-cloudflare": "^2.3.3",
-		"@sveltejs/kit": "^1.27.6",
+		"@sveltejs/kit": "^2.0.0",
 		"@tailwindcss/typography": "^0.5.10",
 		"@types/debug": "^4.1.12",
 		"@typescript-eslint/eslint-plugin": "^6.13.1",
