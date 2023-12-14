@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // adapted from https://github.com/cloudflare/workers-sdk/blob/main/packages/wrangler/templates/d1-beta-facade.js
-export class D1Database {
+export class D1Shim {
 	binding: Fetcher;
 
 	constructor(binding: Fetcher) {
@@ -102,11 +102,11 @@ export class D1Database {
 }
 
 class D1PreparedStatement {
-	database: D1Database;
+	database: D1Shim;
 	statement: any;
 	params: any;
 
-	constructor(database: D1Database, statement: any, values?: any) {
+	constructor(database: D1Shim, statement: any, values?: any) {
 		this.database = database;
 		this.statement = statement;
 		this.params = values || [];
@@ -160,7 +160,7 @@ class D1PreparedStatement {
 	async all() {
 		return firstIfArray(await this.database._send("/query", this.statement, this.params));
 	}
-	async raw() {
+	async raw<T>(): Promise<T[]> {
 		const s = firstIfArray(await this.database._send("/query", this.statement, this.params));
 		const raw = [];
 		for (const r in s.results) {
@@ -169,7 +169,7 @@ class D1PreparedStatement {
 			});
 			raw.push(entry);
 		}
-		return raw;
+		return raw as any;
 	}
 }
 
