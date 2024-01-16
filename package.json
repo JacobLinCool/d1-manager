@@ -27,7 +27,7 @@
 		"@cloudflare/workers-types": "^4.20231121.0",
 		"@iconify/svelte": "^3.1.4",
 		"@playwright/test": "^1.40.1",
-		"@sveltejs/adapter-cloudflare": "^2.3.3",
+		"@sveltejs/adapter-cloudflare": "^4.0.0",
 		"@sveltejs/kit": "^1.27.6",
 		"@tailwindcss/typography": "^0.5.10",
 		"@types/debug": "^4.1.12",
