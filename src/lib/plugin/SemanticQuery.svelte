@@ -53,9 +53,9 @@
 		running = true;
 
 		try {
-			const res = await fetch(`/api/plugin/semantic-query`, {
+			const res = await fetch(`/api/db/${database}/assistant`, {
 				method: "POST",
-				body: JSON.stringify({ q: query, t: [[table, cols], ...others] }),
+				body: JSON.stringify({ q: query, t: table }),
 			});
 
 			const json = await res.json<{ sql: string } | typeof error>();
