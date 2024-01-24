@@ -12,7 +12,7 @@ D1 Manager is a web UI and API for Cloudflare D1, a serverless SQL database. It 
 -   [x] Run SQL queries
 -   [x] Run Semantic Queries (with `OPENAI_API_KEY` env var set)
 -   [x] Edit table data through UI
--   [x] I18n support (English, Chinese) [add more](./locales/)
+-   [x] I18n support (English, Chinese, Spanish, Japanese) [add more](./locales/)
 -   [x] API support (see [routes/api](./src/routes/api/) for details)
 
 ## Setup
