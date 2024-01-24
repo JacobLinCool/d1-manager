@@ -70,11 +70,11 @@ export class D1Shim {
 			typeof query == "object"
 				? query.map((s, index) => {
 						return { sql: s, params: params[index] };
-				  })
+					})
 				: {
 						sql: query,
 						params,
-				  },
+					},
 		);
 		const response = await this.binding.fetch(endpoint, {
 			method: "POST",

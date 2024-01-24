@@ -7,16 +7,16 @@
 		"vscode": {
 			"settings": {
 				"[svelte]": {
-					"editor.formatOnSave": true
+					"editor.formatOnSave": true,
 				},
 				"[typescript]": {
-					"editor.formatOnSave": true
+					"editor.formatOnSave": true,
 				},
 				"[css]": {
-					"editor.formatOnSave": true
+					"editor.formatOnSave": true,
 				},
 				"[json]": {
-					"editor.formatOnSave": true
+					"editor.formatOnSave": true,
 				},
 				"i18n-ally.localesPaths": ["locales"],
 				"i18n-ally.keystyle": "nested",
@@ -25,16 +25,16 @@
 				"i18n-ally.extract.parsers.html": {
 					"attributes": ["text", "title", "alt", "placeholder", "label", "aria-label"],
 					"ignoredTags": ["script", "style"],
-					"inlineText": true
+					"inlineText": true,
 				},
 				"i18n-ally.extract.autoDetect": true,
 				"i18n-ally.refactor.templates": [
 					{
 						"source": "html-attribute",
 						"templates": ["{$t('{key}'{args})}"],
-						"include": ["src/**/*.{svelte,ts}", "index.html"]
-					}
-				]
+						"include": ["src/**/*.{svelte,ts}", "index.html"],
+					},
+				],
 			},
 			"extensions": [
 				"dbaeumer.vscode-eslint",
@@ -44,10 +44,10 @@
 				"svelte.svelte-vscode",
 				"bradlc.vscode-tailwindcss",
 				"antfu.iconify",
-				"lokalise.i18n-ally"
-			]
-		}
+				"lokalise.i18n-ally",
+			],
+		},
 	},
 	"onCreateCommand": "pnpm config set -g store-dir /workspace/node_modules/.pnpm-store",
-	"postStartCommand": "pnpm i"
+	"postStartCommand": "pnpm i",
 }

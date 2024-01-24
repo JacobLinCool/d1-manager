@@ -18,24 +18,15 @@ export const GET: RequestHandler = async ({ params, locals, url, fetch }) => {
 		throw error(404, "Database not found");
 	}
 
-	try {
-		const { results } = await db.prepare(`SELECT COUNT(*) AS count FROM ${params.table}`).all<{
-			count: number;
-		}>();
+	const { results } = await db.prepare(`SELECT COUNT(*) AS count FROM ${params.table}`).all<{
+		count: number;
+	}>();
 
-		if (!results?.[0]) {
-			throw error(404, "No data found");
-		}
-
-		return json(results[0]);
-	} catch (err: any) {
-		return json({
-			error: {
-				message: err.message,
-				cause: err.cause?.message,
-			},
-		});
+	if (!results?.[0]) {
+		throw error(404, "No data found");
 	}
+
+	return json(results[0]);
 };
 
 export const DELETE: RequestHandler = async ({ params, locals }) => {
@@ -44,15 +35,6 @@ export const DELETE: RequestHandler = async ({ params, locals }) => {
 		throw error(404, "Database not found");
 	}
 
-	try {
-		const result = await db.prepare(`DROP TABLE ${params.table}`).run();
-		return json(result);
-	} catch (err: any) {
-		return json({
-			error: {
-				message: err.message,
-				cause: err.cause?.message,
-			},
-		});
-	}
+	const result = await db.prepare(`DROP TABLE ${params.table}`).run();
+	return json(result);
 };

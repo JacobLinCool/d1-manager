@@ -25,28 +25,19 @@ export const GET: RequestHandler = async ({ url, params, locals, fetch }) => {
 	const select = url.searchParams.get("select") || "*";
 	const where = url.searchParams.get("where") || "";
 
-	try {
-		const { results } = await db
-			.prepare(
-				`SELECT ${select} FROM ${params.table}${where ? ` WHERE ${where}` : ""}${
-					order ? ` ORDER BY ${order} ${dir}` : ""
-				} LIMIT ${limit} OFFSET ${offset}`,
-			)
-			.all();
+	const { results } = await db
+		.prepare(
+			`SELECT ${select} FROM ${params.table}${where ? ` WHERE ${where}` : ""}${
+				order ? ` ORDER BY ${order} ${dir}` : ""
+			} LIMIT ${limit} OFFSET ${offset}`,
+		)
+		.all();
 
-		if (!results) {
-			throw error(404, "No data found");
-		}
-
-		return json(results);
-	} catch (err: any) {
-		return json({
-			error: {
-				message: err.message,
-				cause: err.cause?.message,
-			},
-		});
+	if (!results) {
+		throw error(404, "No data found");
 	}
+
+	return json(results);
 };
 
 export const POST: RequestHandler = async ({ request, params, locals }) => {
@@ -57,31 +48,25 @@ export const POST: RequestHandler = async ({ request, params, locals }) => {
 
 	let data: Record<string, unknown>;
 	try {
-		data = await request.json<Record<string, unknown>>();
-	} catch (err: any) {
-		throw error(400, err.message);
+		data = await request.json();
+	} catch (err) {
+		if (err instanceof Error) {
+			throw error(400, err.message);
+		}
+		throw err;
 	}
 
-	try {
-		const statement = db
-			.prepare(
-				`INSERT INTO ${params.table} (${Object.keys(data).join(
-					", ",
-				)}) VALUES (${Object.keys(data)
-					.map(() => "?")
-					.join(", ")})`,
+	const statement = db
+		.prepare(
+			`INSERT INTO ${params.table} (${Object.keys(data).join(", ")}) VALUES (${Object.keys(
+				data,
 			)
-			.bind(...Object.values(data));
-		const result = await statement.run();
-		return json(result);
-	} catch (err: any) {
-		return json({
-			error: {
-				message: err.message,
-				cause: err.cause?.message,
-			},
-		});
-	}
+				.map(() => "?")
+				.join(", ")})`,
+		)
+		.bind(...Object.values(data));
+	const result = await statement.run();
+	return json(result);
 };
 
 export const PUT: RequestHandler = async ({ url, request, params, locals }) => {
@@ -100,29 +85,23 @@ export const PUT: RequestHandler = async ({ url, request, params, locals }) => {
 
 	let data: Record<string, unknown>;
 	try {
-		data = await request.json<Record<string, unknown>>();
-	} catch (err: any) {
-		throw error(400, err.message);
+		data = await request.json();
+	} catch (err) {
+		if (err instanceof Error) {
+			throw error(400, err.message);
+		}
+		throw err;
 	}
 
-	try {
-		const statement = db
-			.prepare(
-				`UPDATE ${params.table} SET ${Object.keys(data)
-					.map((key) => `${key} = ?`)
-					.join(", ")} WHERE ${where_sql(where)}`,
-			)
-			.bind(...Object.values(data), ...Object.values(where));
-		const result = await statement.run();
-		return json(result);
-	} catch (err: any) {
-		return json({
-			error: {
-				message: err.message,
-				cause: err.cause?.message,
-			},
-		});
-	}
+	const statement = db
+		.prepare(
+			`UPDATE ${params.table} SET ${Object.keys(data)
+				.map((key) => `${key} = ?`)
+				.join(", ")} WHERE ${where_sql(where)}`,
+		)
+		.bind(...Object.values(data), ...Object.values(where));
+	const result = await statement.run();
+	return json(result);
 };
 
 export const DELETE: RequestHandler = async ({ url, params, locals }) => {
@@ -139,20 +118,11 @@ export const DELETE: RequestHandler = async ({ url, params, locals }) => {
 
 	const where = Object.fromEntries(url.searchParams.entries());
 
-	try {
-		const statement = db
-			.prepare(`DELETE FROM ${params.table} WHERE ${where_sql(where)}`)
-			.bind(...Object.values(where));
-		const result = await statement.run();
-		return json(result);
-	} catch (err: any) {
-		return json({
-			error: {
-				message: err.message,
-				cause: err.cause?.message,
-			},
-		});
-	}
+	const statement = db
+		.prepare(`DELETE FROM ${params.table} WHERE ${where_sql(where)}`)
+		.bind(...Object.values(where));
+	const result = await statement.run();
+	return json(result);
 };
 
 function where_sql(where: Record<string, unknown>): string {
