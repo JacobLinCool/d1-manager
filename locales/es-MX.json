@@ -13,8 +13,9 @@
 		"en": "Inglés",
 		"zh-CN": "Chino simplificado",
 		"zh-TW": "Chino tradicional",
-    		"es-MX": "Español mexicano",
-   		"es-ES": "Español de españa"
+		"es-MX": "Español mexicano",
+		"es-ES": "Español de españa",
+		"ja": "Japonés"
 	},
 	"language": "Idioma",
 	"n-ms": "{n} ms",

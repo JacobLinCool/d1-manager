@@ -14,7 +14,8 @@
 		"zh-CN": "Simplified Chinese",
 		"zh-TW": "Traditional Chinese",
 		"es-MX": "Mexican Spanish",
-		"es-ES": "Spanish from Spain"
+		"es-ES": "Spanish from Spain",
+		"ja": "Japanese"
 	},
 	"language": "Language",
 	"n-ms": "{n} ms",

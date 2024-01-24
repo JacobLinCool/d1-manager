@@ -1,0 +1,90 @@
+{
+	"col-default": "デフォルト値",
+	"col-name": "列名",
+	"col-type": "型",
+	"d1-manager": {
+		"description": "D1 Managerは、Cloudflare D1（サーバーレスSQLデータベース）用のウェブインターフェースとAPIです。簡単にデータベース、テーブル、データを管理できるユーザーフレンドリーなインターフェースを提供します。APIは柔軟性と既存のワークフローとの統合を提供します。D1 Managerは、ユーザーがデータに集中できるようにします。",
+		"name": "D1 Manager",
+		"short": "Cloudflare D1 内のデータを簡単に管理"
+	},
+	"d1-manager-manage-db": "D1 Manager を使用して {db} 内のデータを管理",
+	"download": "ダウンロード",
+	"lang": {
+		"en": "英語",
+		"zh-CN": "簡体字中国語",
+		"zh-TW": "繁体字中国語",
+		"es-MX": "メキシコスペイン語",
+		"es-ES": "スペイン語",
+		"ja": "日本語"
+	},
+	"language": "言語",
+	"n-ms": "{n} ミリ秒かかりました",
+	"n-table-in-db": "{db} には {n} つのテーブルがあります",
+	"plugin": {
+		"add-record": {
+			"add": "データを追加",
+			"column": "列",
+			"error": "エラーが発生しました",
+			"integer-is-required": "整数が必要です",
+			"n-ms": "実行には {n} ミリ秒かかりました",
+			"name": "データ追加",
+			"real-is-required": "実数が必要です",
+			"success": "追加成功",
+			"value": "値"
+		},
+		"csv": {
+			"export": "エクスポート",
+			"export-csv": "CSV をエクスポート",
+			"import": "インポート",
+			"import-csv": "CSVをインポート",
+			"invalid-column-name-key": "無効な列：{key}",
+			"n-ms-m-changes": "{n} ミリ秒で、{m} 件のデータ変更",
+			"name": "CSV のインポートとエクスポート",
+			"no-result": "結果がありません",
+			"select-a-csv-file": "CSV ファイルを選択"
+		},
+		"run-query": {
+			"export": "エクスポート",
+			"n-ms-m-changes": "{n} ミリ秒で、{m} 件のデータ変更",
+			"name": "SQL クエリの実行",
+			"no-result": "結果にデータがありません",
+			"no-results": "一致する結果はありません",
+			"run": "実行",
+			"unknown-error": "不明なエラー"
+		},
+		"semantic-query": {
+			"autorun-on-read-only-queries": "読み取り専用のクエリは自動的に実行されます。",
+			"export": "エクスポート",
+			"n-ms-m-changes": "{n} ミリ秒で、{m} 件のデータ変更",
+			"name": "セマンティッククエリ",
+			"no-result": "結果にデータがありません",
+			"no-results": "一致する結果はありません",
+			"requires-openai_api_key": "注意：このツールは OPENAI_API_KEY 環境変数の設定が必要です。",
+			"run": "実行",
+			"suggest": "文を作成",
+			"unknown-error": "不明なエラー"
+		},
+		"table-browser": {
+			"click-to-sort-by": "{col} でソートするにはクリック",
+			"invalid-rowid": "無効な行 ID",
+			"name": "テーブルブラウザ",
+			"next": "次のページ",
+			"no-record": "データがありません",
+			"no-result": "データがありません",
+			"no-results": "一致する結果はありません",
+			"prev": "前のページ",
+			"showing": "{from} から {to} までのデータを表示",
+			"table-is-locked": "テーブルはロックされています。編集するにはロックを解除してください",
+			"table-is-locked-click-to-unlock": "ロックされています。編集を有効にするにはクリックしてください",
+			"table-is-unlocked-click-to-lock": "ロックが解除されています。編集を無効にするにはクリックしてください",
+			"unknown-error": "不明なエラー"
+		}
+	},
+	"rows": "データの数",
+	"see-github": "GitHub で使用説明を見る",
+	"select-database": "データベースを選択",
+	"select-database-from-above": "右上からデータベースを選択してください",
+	"show-first-10-records": "{table} の最初の 10 レコードを表示",
+	"suggestion-will-appear-here": "生成された SQL 文がここに表示されます",
+	"theme": "テーマ"
+}
