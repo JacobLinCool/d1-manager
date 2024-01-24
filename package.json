@@ -17,7 +17,7 @@
 		"test:unit": "vitest",
 		"lint": "prettier --ignore-path .gitignore --check . && eslint .",
 		"format": "prettier --ignore-path .gitignore --write .",
-		"upload": "pnpm build && wrangler pages publish --project-name d1-manager .svelte-kit/cloudflare",
+		"upload": "pnpm build && wrangler pages deploy --project-name d1-manager .svelte-kit/cloudflare",
 		"tail": "wrangler pages deployment tail --project-name d1-manager"
 	},
 	"devDependencies": {

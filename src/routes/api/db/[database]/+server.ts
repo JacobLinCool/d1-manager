@@ -3,8 +3,11 @@
  * It also allows creating new tables.
  */
 import { dev } from "$app/environment";
+import { extend } from "$lib/log";
 import { error, json } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
+
+const log = extend("api/db/+server");
 
 export const GET: RequestHandler = async ({ params, locals, url, fetch, platform }) => {
 	if (dev) {
@@ -17,72 +20,64 @@ export const GET: RequestHandler = async ({ params, locals, url, fetch, platform
 		throw error(404, "Database not found");
 	}
 
-	try {
-		const tables = await db.prepare("PRAGMA table_list").all<{
-			schema: string;
-			name: string;
-			type: string;
-			ncol: number;
-			wr: number;
-			strict: number;
-		}>();
+	const tables = await db.prepare("PRAGMA table_list").all<{
+		schema: string;
+		name: string;
+		type: string;
+		ncol: number;
+		wr: number;
+		strict: number;
+	}>();
 
-		if (!tables.results) {
-			throw error(404, "No tables found");
-		}
-		const results = tables.results.filter(({ name }) => {
-			if (name.startsWith("sqlite_") || name.startsWith("d1_")) {
-				return !!platform?.env.SHOW_INTERNAL_TABLES;
-			}
-			return true;
-		});
-
-		const _columns = db.batch(
-			results.map(({ name }) => {
-				return db.prepare(`PRAGMA table_info(${name})`);
-			}),
-		);
-
-		const _count = db.batch<{ c: number }>(
-			results.map(({ name }) => {
-				return db.prepare(`SELECT COUNT(*) AS c FROM ${name}`);
-			}),
-		);
-
-		const columns = (await _columns).map(({ results }) => results);
-		const count = (await _count).map(({ results }) => results?.[0].c);
-
-		const response = results
-			.map(({ name }, i) => ({
-				name,
-				columns: columns[i],
-				count: count[i],
-			}))
-			.sort(({ name: a }, { name: b }) => {
-				if (a.startsWith("sqlite_") && !b.startsWith("sqlite_")) {
-					return 1;
-				} else if (!a.startsWith("sqlite_") && b.startsWith("sqlite_")) {
-					return -1;
-				}
-
-				if (a.startsWith("d1_") && !b.startsWith("d1_")) {
-					return 1;
-				} else if (!a.startsWith("d1_") && b.startsWith("d1_")) {
-					return -1;
-				}
-
-				return a.replace(/^(d1|sqlite)_/, "").localeCompare(b.replace(/^(d1|sqlite)_/, ""));
-			});
-
-		return json(response);
-	} catch (err: any) {
-		return json({
-			error: {
-				message: err.message,
-				cause: err.cause?.message,
-			},
-		});
+	if (!tables.results) {
+		throw error(404, "No tables found");
 	}
+	const results = tables.results.filter(({ name }) => {
+		if (name.startsWith("sqlite_") || name.startsWith("d1_")) {
+			return !!platform?.env.SHOW_INTERNAL_TABLES;
+		}
+		return true;
+	});
+
+	const _columns = db.batch(
+		results.map(({ name }) => {
+			return db.prepare(`PRAGMA table_info(\`${name}\`)`);
+		}),
+	);
+
+	const _count = db.batch<{ c: number }>(
+		results.map(({ name }) => {
+			return db.prepare(`SELECT COUNT(*) AS c FROM \`${name}\``);
+		}),
+	);
+
+	const columns = (await _columns).map(({ results }) => results);
+	const count = (await _count).map(({ results }) => results?.[0].c);
+
+	const response = results
+		.map(({ name }, i) => ({
+			name,
+			columns: columns[i],
+			count: count[i],
+		}))
+		.sort(({ name: a }, { name: b }) => {
+			if (a.startsWith("sqlite_") && !b.startsWith("sqlite_")) {
+				return 1;
+			} else if (!a.startsWith("sqlite_") && b.startsWith("sqlite_")) {
+				return -1;
+			}
+
+			if (a.startsWith("d1_") && !b.startsWith("d1_")) {
+				return 1;
+			} else if (!a.startsWith("d1_") && b.startsWith("d1_")) {
+				return -1;
+			}
+
+			return a.replace(/^(d1|sqlite)_/, "").localeCompare(b.replace(/^(d1|sqlite)_/, ""));
+		});
+
+	log(response);
+	return json(response);
 };
 
 export const POST: RequestHandler = async ({ request, params, locals }) => {
@@ -99,21 +94,12 @@ export const POST: RequestHandler = async ({ request, params, locals }) => {
 		throw error(400, "Missing name");
 	}
 
-	try {
-		const result = await db
-			.prepare(
-				`CREATE TABLE ${name} (${Object.entries(columns)
-					.map(([name, type]) => `${name} ${type}`)
-					.join(", ")}) STRICT`,
-			)
-			.run();
-		return json(result);
-	} catch (err: any) {
-		return json({
-			error: {
-				message: err.message,
-				cause: err.cause?.message,
-			},
-		});
-	}
+	const result = await db
+		.prepare(
+			`CREATE TABLE ${name} (${Object.entries(columns)
+				.map(([name, type]) => `${name} ${type}`)
+				.join(", ")}) STRICT`,
+		)
+		.run();
+	return json(result);
 };

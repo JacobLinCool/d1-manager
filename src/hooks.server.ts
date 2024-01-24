@@ -1,3 +1,4 @@
+import { extend } from "$lib/log";
 import { DBMS } from "$lib/server/db/dbms";
 import type { Handle, HandleServerError } from "@sveltejs/kit";
 import { locale, waitLocale } from "svelte-i18n";
@@ -7,19 +8,19 @@ export const handle: Handle = async ({ event, resolve }) => {
 	locale.set(lang);
 	await waitLocale(lang);
 
-	event.locals.db = DBMS(event.platform?.env || {}) as any;
+	event.locals.db = DBMS(event.platform?.env || {});
 
 	const result = await resolve(event);
 	return result;
 };
 
-export const handleError: HandleServerError = async ({ error }) => {
-	console.error(error);
+const elog = extend("server-error");
 
-	const err: any = error;
+export const handleError: HandleServerError = async ({ error }) => {
+	elog(error);
 
 	return {
-		code: err?.status || 500,
-		message: err?.body?.message || "Internal Server Error",
+		code: 500,
+		message: "Internal Server Error",
 	};
 };

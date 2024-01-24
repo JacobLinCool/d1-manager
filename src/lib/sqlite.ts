@@ -22,14 +22,14 @@ export function affinity(name?: string): Type {
 	return "NUMERIC";
 }
 
-export function cast(value: any, type: Type): any {
+export function cast<T extends Type>(value: unknown, type: T): unknown {
 	switch (type) {
 		case "TEXT":
 			return String(value);
 		case "INTEGER":
-			return Number.isNaN(Number(value)) ? null : parseInt(value);
+			return Number.isNaN(Number(value)) ? null : parseInt(value as string);
 		case "REAL":
-			return Number.isNaN(Number(value)) ? null : parseFloat(value);
+			return Number.isNaN(Number(value)) ? null : parseFloat(value as string);
 		case "BLOB":
 			return value;
 		case "NUMERIC":

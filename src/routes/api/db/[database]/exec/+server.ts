@@ -14,11 +14,14 @@ export const POST: RequestHandler = async ({ request, params, locals, url, fetch
 		throw error(404, "Database not found");
 	}
 
-	let data: any;
+	let data: { query?: string };
 	try {
-		data = await request.json<{ query?: string }>();
-	} catch (err: any) {
-		throw error(400, err.message);
+		data = await request.json();
+	} catch (err) {
+		if (err instanceof Error) {
+			throw error(400, err.message);
+		}
+		throw err;
 	}
 
 	const { query } = data;
@@ -26,15 +29,6 @@ export const POST: RequestHandler = async ({ request, params, locals, url, fetch
 		throw error(400, "Missing query");
 	}
 
-	try {
-		const result = await db.exec(query);
-		return json(result);
-	} catch (err: any) {
-		return json({
-			error: {
-				message: err.message,
-				cause: err.cause.message,
-			},
-		});
-	}
+	const result = await db.exec(query);
+	return json(result);
 };
