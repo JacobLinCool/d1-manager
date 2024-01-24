@@ -12,7 +12,9 @@
 	"lang": {
 		"en": "English",
 		"zh-CN": "Simplified Chinese",
-		"zh-TW": "Traditional Chinese"
+		"zh-TW": "Traditional Chinese",
+		"es-MX": "Mexican Spanish",
+		"es-ES": "Spanish from Spain"
 	},
 	"language": "Language",
 	"n-ms": "{n} ms",
