@@ -33,6 +33,10 @@ export const GET: RequestHandler = async ({ params, locals, url, fetch, platform
 		throw error(404, "No tables found");
 	}
 	const results = tables.results.filter(({ name }) => {
+		// Avoid all Cloudflare internal table names.
+		if (name.startsWith("_cf_")) {
+			return false;
+		}
 		if (name.startsWith("sqlite_") || name.startsWith("d1_")) {
 			return !!platform?.env.SHOW_INTERNAL_TABLES;
 		}
