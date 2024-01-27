@@ -10,6 +10,7 @@
 	"d1-manager-manage-db": "Use D1 Manager to mange data in {db}",
 	"download": "Download",
 	"execute-sql-query-in-database": "Execute SQL query in database {db}",
+	"import": "Import",
 	"lang": {
 		"en": "English",
 		"es-ES": "Spanish from Spain",
@@ -46,7 +47,7 @@
 		},
 		"run-query": {
 			"export": "Export",
-			"n-ms-m-changes": "{n} ms, {m} changes",
+			"n-ms-m-changes": "{n} ms, {rr} rows read, {rw} rows written",
 			"name": "Run SQL Query",
 			"no-result": "No result",
 			"no-results": "No Results",
@@ -56,7 +57,7 @@
 		"semantic-query": {
 			"autorun-on-read-only-queries": "Readonly query will be run automatically.",
 			"export": "Export",
-			"n-ms-m-changes": "{n} ms, {m} changes",
+			"n-ms-m-changes": "{n} ms, {rr} rows read, {rw} rows written",
 			"name": "Semantic Query",
 			"no-result": "No result",
 			"no-results": "No Results",

@@ -10,6 +10,7 @@
 	"d1-manager-manage-db": "使用 D1 Manager 管理 {db} 中的资料",
 	"download": "下载",
 	"execute-sql-query-in-database": "在数据库 {db} 中执行 SQL 查询",
+	"import": "汇入",
 	"lang": {
 		"en": "英语",
 		"es-ES": "西班牙语",
@@ -46,7 +47,7 @@
 		},
 		"run-query": {
 			"export": "导出",
-			"n-ms-m-changes": "花费 {n} 毫秒，{m} 笔资料更动",
+			"n-ms-m-changes": "{n} 毫秒，读取 {rr} 行，写入 {rw} 行",
 			"name": "运行 SQL 查询",
 			"no-result": "没有结果",
 			"no-results": "没有结果",
@@ -56,7 +57,7 @@
 		"semantic-query": {
 			"autorun-on-read-only-queries": "只读查询将自动运行。",
 			"export": "导出",
-			"n-ms-m-changes": "花费 {n} 毫秒，{m} 笔资料更动",
+			"n-ms-m-changes": "{n} 毫秒，读取 {rr} 行，写入 {rw} 行",
 			"name": "语义查询",
 			"no-result": "没有结果",
 			"no-results": "没有结果",

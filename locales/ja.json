@@ -10,6 +10,7 @@
 	"d1-manager-manage-db": "D1 Manager を使用して {db} 内のデータを管理",
 	"download": "ダウンロード",
 	"execute-sql-query-in-database": "データベース {db} で SQL クエリを実行します",
+	"import": "インポート",
 	"lang": {
 		"en": "英語",
 		"es-ES": "スペイン語",
@@ -46,7 +47,7 @@
 		},
 		"run-query": {
 			"export": "エクスポート",
-			"n-ms-m-changes": "{n} ミリ秒で、{m} 件のデータ変更",
+			"n-ms-m-changes": "{n} ミリ秒、{rr} 行読み取り、{rw} 行書き込み",
 			"name": "SQL クエリの実行",
 			"no-result": "結果にデータがありません",
 			"no-results": "一致する結果はありません",
@@ -56,7 +57,7 @@
 		"semantic-query": {
 			"autorun-on-read-only-queries": "読み取り専用のクエリは自動的に実行されます。",
 			"export": "エクスポート",
-			"n-ms-m-changes": "{n} ミリ秒で、{m} 件のデータ変更",
+			"n-ms-m-changes": "{n} ミリ秒、{rr} 行読み取り、{rw} 行書き込み",
 			"name": "セマンティッククエリ",
 			"no-result": "結果にデータがありません",
 			"no-results": "一致する結果はありません",

@@ -11,27 +11,8 @@
 	let running = false;
 	let suggestion: string | undefined;
 	$: danger = is_dangerous(suggestion || "");
-	let result:
-		| {
-				results: Record<string, unknown>[];
-				success: boolean;
-				meta: {
-					duration: number;
-					last_row_id: number;
-					changes: number;
-					served_by: string;
-					internal_stats: null;
-				};
-		  }
-		| undefined;
-	let error:
-		| {
-				error: {
-					message: string;
-					cause?: string;
-				};
-		  }
-		| undefined;
+	let result: D1Result<any> | undefined;
+	let error: string | undefined;
 
 	async function suggest() {
 		if (running) {
@@ -45,17 +26,20 @@
 				body: JSON.stringify({ q: query, t: table }),
 			});
 
-			const json = await res.json<{ sql: string } | typeof error>();
+			const json = await res.json<{ sql: string } | { message: string }>();
 			if (json) {
-				if ("error" in json) {
-					error = json;
-					suggestion = undefined;
-				} else {
-					suggestion = json.sql;
-					error = undefined;
+				if ("message" in json) {
+					throw new Error(json.message);
 				}
+				suggestion = json.sql;
 			} else {
 				throw new Error($t("plugin.semantic-query.no-result"));
+			}
+		} catch (e) {
+			if (e instanceof Error) {
+				error = e.message;
+			} else {
+				error = $t("plugin.semantic-query.unknown-error");
 			}
 		} finally {
 			running = false;
@@ -80,28 +64,23 @@
 				body: JSON.stringify({ query: suggestion }),
 			});
 
-			const json = await res.json<typeof result | typeof error>();
+			const json = await res.json<D1Result | { message: string }>();
 			if (json) {
-				if ("error" in json) {
-					error = json;
-					result = undefined;
-				} else {
-					result = json;
-					error = undefined;
+				if ("message" in json) {
+					throw new Error(json.message);
 				}
+				result = json;
+				error = undefined;
 			} else {
 				throw new Error($t("plugin.semantic-query.no-result"));
 			}
 		} catch (err) {
-			error = {
-				error: {
-					message:
-						err instanceof Error
-							? err.message
-							: $t("plugin.semantic-query.unknown-error"),
-				},
-			};
 			result = undefined;
+			if (err instanceof Error) {
+				error = err.message;
+			} else {
+				error = $t("plugin.semantic-query.unknown-error");
+			}
 		} finally {
 			running = false;
 			setTimeout(() => {
@@ -206,7 +185,8 @@
 			{$t("plugin.semantic-query.n-ms-m-changes", {
 				values: {
 					n: result.meta.duration.toFixed(2),
-					m: result.meta.changes,
+					rr: result.meta.rows_read ?? "x",
+					rw: result.meta.rows_written ?? result.meta.changes,
 				},
 			})}
 		</p>
@@ -225,7 +205,7 @@
 	<div class="divider" />
 
 	<div class="alert alert-error shadow-lg">
-		<div>{error.error.cause || error.error.message}</div>
+		<div>{error}</div>
 	</div>
 {/if}
 

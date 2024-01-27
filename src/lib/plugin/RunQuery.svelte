@@ -10,27 +10,8 @@
 	$: danger = is_dangerous(query);
 
 	let running = false;
-	let result:
-		| {
-				results: Record<string, unknown>[];
-				success: boolean;
-				meta: {
-					duration: number;
-					last_row_id: number;
-					changes: number;
-					served_by: string;
-					internal_stats: null;
-				};
-		  }
-		| undefined;
-	let error:
-		| {
-				error: {
-					message: string;
-					cause?: string;
-				};
-		  }
-		| undefined;
+	let result: D1Result<any> | undefined;
+	let error: string | undefined;
 
 	async function run() {
 		if (running) {
@@ -44,26 +25,23 @@
 				body: JSON.stringify({ query }),
 			});
 
-			const json = await res.json<typeof result | typeof error>();
+			const json = await res.json<D1Result | { message: string }>();
 			if (json) {
-				if ("error" in json) {
-					error = json;
-					result = undefined;
-				} else {
-					result = json;
-					error = undefined;
+				if ("message" in json) {
+					throw new Error(json.message);
 				}
+				result = json;
+				error = undefined;
 			} else {
 				throw new Error($t("plugin.run-query.no-result"));
 			}
 		} catch (err) {
-			error = {
-				error: {
-					message:
-						err instanceof Error ? err.message : $t("plugin.run-query.unknown-error"),
-				},
-			};
 			result = undefined;
+			if (err instanceof Error) {
+				error = err.message;
+			} else {
+				error = $t("plugin.run-query.unknown-error");
+			}
 		} finally {
 			running = false;
 			setTimeout(() => {
@@ -95,7 +73,7 @@
 {#if result}
 	<div class="divider" />
 
-	{#if result.results.length}
+	{#if result?.results?.length}
 		<div class="max-h-[80vh] overflow-auto">
 			<table class="table-sm table w-full">
 				<thead>
@@ -129,11 +107,12 @@
 			{$t("plugin.run-query.n-ms-m-changes", {
 				values: {
 					n: result.meta.duration.toFixed(2),
-					m: result.meta.changes,
+					rr: result.meta.rows_read ?? "x",
+					rw: result.meta.rows_written ?? result.meta.changes,
 				},
 			})}
 		</p>
-		{#if result?.results.length}
+		{#if result?.results?.length}
 			<button
 				class="btn-primary btn-outline btn-sm btn"
 				on:click={() => (result ? export_csv(result.results, table) : undefined)}
@@ -148,7 +127,7 @@
 	<div class="divider" />
 
 	<div class="alert alert-error shadow-lg">
-		<div>{error.error.cause || error.error.message}</div>
+		<div>{error}</div>
 	</div>
 {/if}
 

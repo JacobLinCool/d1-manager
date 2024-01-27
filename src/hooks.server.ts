@@ -15,9 +15,17 @@ export const handle: Handle = async ({ event, resolve }) => {
 };
 
 const elog = extend("server-error");
+elog.enabled = true;
 
 export const handleError: HandleServerError = async ({ error }) => {
 	elog(error);
+
+	if (error instanceof Error && error.message.startsWith("D1_")) {
+		return {
+			code: 400,
+			message: error.message,
+		};
+	}
 
 	return {
 		code: 500,
