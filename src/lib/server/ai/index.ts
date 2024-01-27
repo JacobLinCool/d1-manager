@@ -8,6 +8,24 @@ debug.enable("aid*");
 const log = debug("assistant");
 log.enabled = true;
 
+const OPENAI_MODEL = env.OPENAI_MODEL || "gpt-3.5-turbo-1106";
+const CFAI_MODEL = env.CFAI_MODEL || "@cf/mistral/mistral-7b-instruct-v0.1";
+
+/**
+ * Checks the availability of AI models.
+ */
+export function available(): string | null {
+	if (env.OPENAI_API_KEY) {
+		return `OpenAI (${OPENAI_MODEL})`;
+	}
+
+	if (env.AI) {
+		return `Cloudflare (${CFAI_MODEL})`;
+	}
+
+	return null;
+}
+
 export type AiBackend =
 	| Aid<
 			string,
@@ -21,13 +39,12 @@ export async function select_backend(): Promise<AiBackend> {
 	if (env.OPENAI_API_KEY) {
 		log("using OpenAI backend");
 		const { OpenAI } = await import("openai");
-		const model = env.OPENAI_MODEL || "gpt-3.5-turbo-1106";
 		return Aid.from(
 			new OpenAI({
 				baseURL: env.OPENAI_API_URL,
 				apiKey: env.OPENAI_API_KEY,
 			}),
-			{ model },
+			{ model: OPENAI_MODEL },
 		);
 	}
 
@@ -36,8 +53,7 @@ export async function select_backend(): Promise<AiBackend> {
 		return Aid.chat(async (messages) => {
 			const { Ai } = await import("$lib/../../cfai/cfai");
 			const ai = new Ai(env.AI);
-			const model = env.CFAI_MODEL || "@cf/mistral/mistral-7b-instruct-v0.1";
-			const { response } = await ai.run(model, {
+			const { response } = await ai.run(CFAI_MODEL, {
 				messages,
 			});
 

@@ -73,7 +73,9 @@
 				<textarea
 					class="textarea-bordered textarea h-10 flex-1 resize-y !rounded-l-lg font-mono transition-colors focus:textarea-primary join-item"
 					class:!outline-error={danger}
-					placeholder="Execute SQL query in database {$page.params.database}"
+					placeholder={$t("execute-sql-query-in-database", {
+						values: { db: $page.params.database },
+					})}
 					bind:value={query}
 					on:keypress={handler}
 					disabled={running}

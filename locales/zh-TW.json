@@ -9,13 +9,14 @@
 	},
 	"d1-manager-manage-db": "使用 D1 Manager 管理 {db} 中的資料",
 	"download": "下載",
+	"execute-sql-query-in-database": "在資料庫 {db} 中執行 SQL 查詢",
 	"lang": {
 		"en": "英語",
-		"zh-CN": "簡體中文",
-		"zh-TW": "正體中文",
-		"es-MX": "墨西哥西班牙語",
 		"es-ES": "西班牙語",
-		"ja": "日語"
+		"es-MX": "墨西哥西班牙語",
+		"ja": "日語",
+		"zh-CN": "簡體中文",
+		"zh-TW": "正體中文"
 	},
 	"language": "語言",
 	"n-ms": "花費 {n} 毫秒",

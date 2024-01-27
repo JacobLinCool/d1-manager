@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { t } from "svelte-i18n";
-	import type { PluginData } from "./type";
 	import { is_dangerous, is_readonly } from "../sql";
 	import { export_csv } from "$lib/csv";
 
@@ -173,7 +172,7 @@
 {#if result}
 	<div class="divider" />
 
-	{#if result.results.length}
+	{#if result.results?.length}
 		<div class="max-h-[80vh] overflow-auto">
 			<table class="table-sm table w-full">
 				<thead>
@@ -211,7 +210,7 @@
 				},
 			})}
 		</p>
-		{#if result?.results.length}
+		{#if result.results?.length}
 			<button
 				class="btn-primary btn-outline btn-sm btn"
 				on:click={() => (result ? export_csv(result.results, table) : undefined)}
