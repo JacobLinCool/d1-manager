@@ -10,7 +10,7 @@ D1 Manager is a web UI and API for Cloudflare D1, a serverless SQL database. It 
 -   [x] List all tables in a database
 -   [x] Show table schema
 -   [x] Run SQL queries
--   [x] Run Semantic Queries (with `OPENAI_API_KEY` env var set)
+-   [x] Run Semantic Queries (OpenAI API or Cloudflare AI Worker)
 -   [x] Edit table data through UI
 -   [x] I18n support (English, Chinese, Spanish, Japanese) [add more](./locales/)
 -   [x] API support (see [routes/api](./src/routes/api/) for details)
@@ -34,9 +34,22 @@ Some plugins (e.g. Semantic Query) require additional environment variables to b
 
 Also, there are some configuration options that can be set through environment variables.
 
--   `SHOW_INTERNAL_TABLES`: Show internal tables (`splite_*` and `d1_*`) in the UI.
--   `OPENAI_API_KEY`: OpenAI API key for Semantic Query.
--   `OPENAI_API_URL`: You may use this with Cloudflare AI Gateway to proxy requests to OpenAI API.
+- `SHOW_INTERNAL_TABLES`: Show internal tables (`splite_*` and `d1_*`) in the UI.
+
+#### Semantic Query
+
+You can use OpenAI API or Cloudflare AI Worker to run Semantic Query.
+
+OpenAI API:
+
+- `OPENAI_API_KEY`: OpenAI API key for Semantic Query.
+- `OPENAI_API_URL`: You may use this with Cloudflare AI Gateway to proxy requests to OpenAI API.
+- `OPENAI_MODEL`: OpenAI API model for Semantic Query. Default to `gpt-3.5-turbo-1106`.
+
+Cloudflare AI Worker:
+
+- `AI`: Bind a Cloudflare AI Worker to this variable.
+- `CFAI_MODEL`: Cloudflare AI Worker model for Semantic Query. Default to `@cf/mistral/mistral-7b-instruct-v0.1`.
 
 ## Screenshots
 

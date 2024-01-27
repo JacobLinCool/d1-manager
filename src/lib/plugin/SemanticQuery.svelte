@@ -6,18 +6,6 @@
 
 	export let database: string;
 	export let table: string;
-	export let data: PluginData;
-
-	const cols: [string, string][] =
-		data.db
-			.find(({ name }) => name === table)
-			?.columns.sort(({ cid: a }, { cid: b }) => a - b)
-			.map(({ name, type }) => [name, type]) || [];
-	const others: [string, [string, string][]][] = data.db
-		.filter(
-			({ name }) => name !== table && !name.startsWith("sqlite_") && !name.startsWith("d1_"),
-		)
-		.map(({ name, columns }) => [name, columns.map(({ name, type }) => [name, type])]);
 
 	let query = $t("show-first-10-records", { values: { table } });
 
@@ -79,6 +67,9 @@
 	}
 
 	async function run() {
+		if (!suggestion) {
+			return;
+		}
 		if (running) {
 			return;
 		}

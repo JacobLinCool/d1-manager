@@ -1,17 +1,14 @@
-import { env } from "$env/dynamic/private";
-import { Aid } from "@ai-d/aid";
+import { select_backend } from "$lib/server/ai";
 import { json } from "@sveltejs/kit";
-import debug from "debug";
-import { OpenAI } from "openai";
 import { z } from "zod";
 import type { RequestHandler } from "./$types";
 
-debug.enable("aid*");
-
-export const POST: RequestHandler = async ({ params, request, fetch }) => {
-	const OPENAI_API_KEY = env.OPENAI_API_KEY;
-	if (typeof OPENAI_API_KEY !== "string") {
-		return json({ error: "OPENAI_API_KEY is not set" });
+export const POST: RequestHandler = async ({ params, request, fetch, platform }) => {
+	const aid = await select_backend();
+	if (!aid) {
+		return json({
+			error: "no backend",
+		});
 	}
 
 	const tables_p = fetch("/api/db/" + params.database).then((r) =>
@@ -41,12 +38,6 @@ export const POST: RequestHandler = async ({ params, request, fetch }) => {
 
 	const question = data.q || "show first 10 records in the table";
 
-	const openai = new OpenAI({
-		baseURL: env.OPENAI_API_URL,
-		apiKey: OPENAI_API_KEY,
-	});
-	const aid = Aid.from(openai, { model: "gpt-3.5-turbo-1106" });
-
 	const system = `SQLite tables, with their properties:
 
 ${tables
@@ -63,6 +54,20 @@ write a raw SQL, without comment`;
 		z.object({
 			sql: z.string().describe("SQL query"),
 		}),
+		{
+			examples: [
+				[
+					{ text: "show first 10 records in the table" },
+					{ sql: `SELECT * FROM \`${tables[0].name}\` LIMIT 10` },
+				],
+				[
+					{ text: "show columns in the table" },
+					{
+						sql: `SELECT name, type FROM pragma_table_info('${tables[0].name}')`,
+					},
+				],
+			],
+		},
 	);
 
 	const { result } = await get_sql(question);
