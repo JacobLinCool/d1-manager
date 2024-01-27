@@ -9,19 +9,50 @@ export async function sqlite2sql(sqlite3: ArrayBuffer): Promise<string> {
 	let sql = "";
 
 	// list all tables
-	const tables = db.exec("SELECT name, sql FROM sqlite_master WHERE type='table';")[0];
-	console.log({ tables });
-	if (tables) {
-		tables.values = tables.values.filter((table) => {
+	const tables_res = db.exec("SELECT name, sql FROM sqlite_master WHERE type='table';")[0];
+	console.log({ tables_res });
+	const tables: [string, string][] = [];
+	if (tables_res) {
+		const unresolved = new Set<string>();
+		const t = tables_res.values.filter((table) => {
 			const name = table[0] as string;
 			return (
 				!name.startsWith("sqlite_") && !name.startsWith("d1_") && !name.startsWith("_cf_")
 			);
 		});
-		for (const table of tables.values) {
-			if (table[1]) {
-				sql += table[1] + "\n";
+		for (const table of t) {
+			unresolved.add(table[0] as string);
+		}
+
+		// table order
+		let resolving = true;
+		while (resolving) {
+			resolving = false;
+			for (const table of t) {
+				const name = table[0] as string;
+				const sql = table[1] as string;
+				// if sql incults any of the unresolved tables, skip it
+				if (
+					Array.from(unresolved)
+						.filter((x) => name !== x)
+						.some((name) => sql.includes(name))
+				) {
+					continue;
+				}
+				// otherwise, add it to the resolved list
+				tables.push(table as [string, string]);
+				unresolved.delete(table[0] as string);
+				t.splice(t.indexOf(table), 1);
+				resolving = true;
 			}
+		}
+		for (const table of unresolved) {
+			console.log(`Unresolved table ${table}`);
+			tables.push([table, (t.find((t) => t[0] === table)?.[1] || "") as string]);
+		}
+
+		for (const stmt of tables) {
+			sql += stmt[1] + "\n";
 		}
 	}
 
@@ -71,7 +102,7 @@ export async function sqlite2sql(sqlite3: ArrayBuffer): Promise<string> {
 
 	// add all data
 	if (tables) {
-		for (const table of tables.values) {
+		for (const table of tables) {
 			const name = table[0];
 			const rows = db.exec(`SELECT * FROM \`${name}\`;`)[0];
 			if (!rows) {
