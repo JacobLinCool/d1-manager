@@ -55,7 +55,9 @@ export const GET: RequestHandler = async ({ params, locals, url, fetch, platform
 		}),
 	);
 
-	const columns = (await _columns).map(({ results }) => results);
+	const columns = (await _columns).map(
+		({ results }) => results as { name: string; type: string }[],
+	);
 	const count = (await _count).map(({ results }) => results?.[0].c);
 
 	const response = results

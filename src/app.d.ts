@@ -11,6 +11,7 @@ declare global {
 			env: {
 				SHOW_INTERNAL_TABLES?: string;
 				OPENAI_API_KEY?: string;
+				AI?: unknown;
 			} & Record<string, Fetcher | string>;
 		}
 	}

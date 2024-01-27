@@ -9,13 +9,14 @@
 	},
 	"d1-manager-manage-db": "Usa D1 Manager para gestionar datos en {db}",
 	"download": "Descargar",
+	"execute-sql-query-in-database": "Ejecutar consulta SQL en la base de datos {db}",
 	"lang": {
 		"en": "Inglés",
-		"zh-CN": "Chino simplificado",
-		"zh-TW": "Chino tradicional",
-		"es-MX": "Español mexicano",
 		"es-ES": "Español de españa",
-		"ja": "Japonés"
+		"es-MX": "Español mexicano",
+		"ja": "Japonés",
+		"zh-CN": "Chino simplificado",
+		"zh-TW": "Chino tradicional"
 	},
 	"language": "Idioma",
 	"n-ms": "{n} ms",

@@ -1,23 +1,10 @@
 <script lang="ts">
 	import { t } from "svelte-i18n";
-	import type { PluginData } from "./type";
 	import { is_dangerous, is_readonly } from "../sql";
 	import { export_csv } from "$lib/csv";
 
 	export let database: string;
 	export let table: string;
-	export let data: PluginData;
-
-	const cols: [string, string][] =
-		data.db
-			.find(({ name }) => name === table)
-			?.columns.sort(({ cid: a }, { cid: b }) => a - b)
-			.map(({ name, type }) => [name, type]) || [];
-	const others: [string, [string, string][]][] = data.db
-		.filter(
-			({ name }) => name !== table && !name.startsWith("sqlite_") && !name.startsWith("d1_"),
-		)
-		.map(({ name, columns }) => [name, columns.map(({ name, type }) => [name, type])]);
 
 	let query = $t("show-first-10-records", { values: { table } });
 
@@ -53,9 +40,9 @@
 		running = true;
 
 		try {
-			const res = await fetch(`/api/plugin/semantic-query`, {
+			const res = await fetch(`/api/db/${database}/assistant`, {
 				method: "POST",
-				body: JSON.stringify({ q: query, t: [[table, cols], ...others] }),
+				body: JSON.stringify({ q: query, t: table }),
 			});
 
 			const json = await res.json<{ sql: string } | typeof error>();
@@ -79,6 +66,9 @@
 	}
 
 	async function run() {
+		if (!suggestion) {
+			return;
+		}
 		if (running) {
 			return;
 		}
@@ -182,7 +172,7 @@
 {#if result}
 	<div class="divider" />
 
-	{#if result.results.length}
+	{#if result.results?.length}
 		<div class="max-h-[80vh] overflow-auto">
 			<table class="table-sm table w-full">
 				<thead>
@@ -220,7 +210,7 @@
 				},
 			})}
 		</p>
-		{#if result?.results.length}
+		{#if result.results?.length}
 			<button
 				class="btn-primary btn-outline btn-sm btn"
 				on:click={() => (result ? export_csv(result.results, table) : undefined)}
