@@ -29,7 +29,7 @@
 			const q = query
 				.split(";")
 				.filter((q) => q.trim())
-				.map((q) => q.replace(/\n/g, " "))
+				.map((q) => q.replace(/\n/g, "\\n"))
 				.join("\n");
 			const res = await fetch(`/api/db/${$page.params.database}/exec`, {
 				method: "POST",
