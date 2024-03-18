@@ -108,33 +108,39 @@
 				return bodies;
 			}
 
-			const query = bodies
-				.map(
-					(body) =>
-						`INSERT INTO ${table} (${keys?.join(", ")}) VALUES ${body.replace(/\n/g, "\\n")}`,
-				)
-				.join("\n");
+			const queries = bodies.map(
+				(body) => `INSERT INTO ${table} (${keys?.join(", ")}) VALUES ${body}`,
+			);
 
-			console.log(query);
-			const res = await fetch(`/api/db/${database}/exec`, {
-				method: "POST",
-				body: JSON.stringify({ query }),
-			});
+			console.log(queries);
+			let r: typeof result = undefined;
+			for (const query of queries) {
+				const res = await fetch(`/api/db/${database}/all`, {
+					method: "POST",
+					body: JSON.stringify({ query }),
+				});
 
-			const json = await res.json<any>();
-			if (json) {
-				if ("error" in json) {
-					error = json?.error?.cause || json?.error?.message;
-					result = undefined;
+				const json = await res.json<any>();
+				if (json) {
+					if ("error" in json) {
+						error = json?.error?.cause || json?.error?.message;
+						r = undefined;
+					} else {
+						if (r) {
+							r.meta.duration += json.meta.duration;
+							r.meta.changes += json.meta.changes;
+						} else {
+							r = json;
+						}
+						error = undefined;
+						files = undefined;
+						keys = undefined;
+						casted = undefined;
+					}
+					result = r;
 				} else {
-					result = json;
-					error = undefined;
-					files = undefined;
-					keys = undefined;
-					casted = undefined;
+					throw new Error($t("plugin.csv.no-result"));
 				}
-			} else {
-				throw new Error($t("plugin.csv.no-result"));
 			}
 		} finally {
 			running = false;
