@@ -85,18 +85,38 @@
 	}
 
 	async function import_csv() {
-		if (running) {
+		if (running || !casted) {
 			return;
 		}
 		running = true;
 
 		try {
-			const query = `INSERT INTO ${table} (${keys?.join(", ")}) VALUES ${casted
-				?.map((row) => `(${row.map((x) => JSON.stringify(x)).join(", ")})`)
-				.join(", ")}`;
+			const bodies = split(casted, 90_000);
+
+			function split(arr: any[][], size: number): string[] {
+				const bodies: string[] = [""];
+				for (let i = 0; i < arr.length; i++) {
+					if (bodies[bodies.length - 1].length >= size) {
+						bodies.push("");
+					}
+					if (bodies[bodies.length - 1].length > 0) {
+						bodies[bodies.length - 1] += ", ";
+					}
+					bodies[bodies.length - 1] +=
+						`(${arr[i].map((x) => JSON.stringify(x)).join(", ")})`;
+				}
+				return bodies;
+			}
+
+			const query = bodies
+				.map(
+					(body) =>
+						`INSERT INTO ${table} (${keys?.join(", ")}) VALUES ${body.replace(/\n/g, "\\n")}`,
+				)
+				.join("\n");
 
 			console.log(query);
-			const res = await fetch(`/api/db/${database}/all`, {
+			const res = await fetch(`/api/db/${database}/exec`, {
 				method: "POST",
 				body: JSON.stringify({ query }),
 			});
