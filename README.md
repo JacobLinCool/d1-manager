@@ -19,8 +19,12 @@ D1 Manager is a web UI and API for Cloudflare D1, a serverless SQL database. It 
 
 1. Fork this repo
 2. Setup a **Cloudflare Pages** with the forked repo
-3. Use **Cloudflare Access** to protect the your site
-4. **Bind databases** to `DB_*` environment variables
+   - Select the **SveltKit** framework preset.
+   - Build command: `npm run build`
+   - Build output directory: `.svelte-kit/cloudflare`
+4. Use **Cloudflare Access** to protect the your site
+   - The default access rules only restrict access to preview pages, so make sure to add other urls you want protected.
+6. **Bind databases** to `DB_*` environment variables
 
 ![bind-d1](./images/bind-d1.png)
 
