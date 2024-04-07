@@ -1,7 +1,7 @@
 // Copied from https://github.com/cloudflare/pages-plugins/blob/434fad8db20e483cc532d9c678d46a73a4ae7115/packages/cloudflare-access/functions/_middleware.ts
-
 import type { PluginArgs } from "@cloudflare/pages-plugin-cloudflare-access";
 import { generateLoginURL, getIdentity } from "@cloudflare/pages-plugin-cloudflare-access/api";
+import { parse as parseCookies } from "cookie";
 
 type CloudflareAccessPagesPluginFunction<
 	Env = unknown,
@@ -9,7 +9,10 @@ type CloudflareAccessPagesPluginFunction<
 	Data extends Record<string, unknown> = Record<string, unknown>,
 > = PagesPluginFunction<Env, Params, Data, PluginArgs>;
 
-const extractJWTFromRequest = (request: Request) => request.headers.get("Cf-Access-Jwt-Assertion");
+const extractJWTFromRequest = (request: Request) =>
+	request.headers.get("Cf-Access-Jwt-Assertion") ||
+	// I had to add this as some requests didn't have the header, just the cookie..
+	parseCookies(request.headers.get("Cookie") || "")["CF_Authorization"];
 
 // Adapted slightly from https://github.com/cloudflare/workers-access-external-auth-example
 const base64URLDecode = (s: string) => {
@@ -34,7 +37,6 @@ const generateValidator =
 		payload: object;
 	}> => {
 		const jwt = extractJWTFromRequest(request);
-
 		const parts = jwt.split(".");
 		if (parts.length !== 3) {
 			throw new Error("JWT does not have three parts.");

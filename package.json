@@ -32,6 +32,7 @@
 		"@sveltejs/kit": "^2.4.3",
 		"@sveltejs/vite-plugin-svelte": "^3.0.1",
 		"@tailwindcss/typography": "^0.5.10",
+		"@types/cookie": "^0.6.0",
 		"@types/debug": "^4.1.12",
 		"@types/sql.js": "^1.4.9",
 		"@typescript-eslint/eslint-plugin": "^6.19.1",
@@ -81,6 +82,7 @@
 	},
 	"packageManager": "pnpm@8.14.3",
 	"dependencies": {
-		"@cloudflare/pages-plugin-cloudflare-access": "^1.0.4"
+		"@cloudflare/pages-plugin-cloudflare-access": "^1.0.4",
+		"cookie": "^0.6.0"
 	}
 }

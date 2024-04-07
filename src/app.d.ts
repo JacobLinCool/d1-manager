@@ -12,6 +12,8 @@ declare global {
 				SHOW_INTERNAL_TABLES?: string;
 				OPENAI_API_KEY?: string;
 				AI?: unknown;
+				ACCESS_DOMAIN?: string;
+				ACCESS_AUD?: string;
 			} & Record<string, Fetcher | string>;
 		}
 	}

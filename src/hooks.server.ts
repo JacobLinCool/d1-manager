@@ -1,4 +1,3 @@
-import { env } from "$env/dynamic/private";
 import { extend } from "$lib/log";
 import { DBMS } from "$lib/server/db/dbms";
 import type { Handle, HandleServerError } from "@sveltejs/kit";
@@ -19,12 +18,15 @@ const handler: Handle = async ({ event, resolve }) => {
 export const handle: Handle = async ({ event, resolve }) => {
 	console.log(event.request.url);
 	// check request is authenticated
-	if (env.IS_LOCAL_MODE === "1") {
+	if (event.platform?.env.IS_LOCAL_MODE === "1") {
 		return await handler({ event, resolve });
 	} else {
 		return await onRequest({
 			request: event.request,
-			pluginArgs: { domain: env.ACCESS_DOMAIN, aud: env.ACCESS_AUD },
+			pluginArgs: {
+				domain: event.platform?.env.ACCESS_DOMAIN,
+				aud: event.platform?.env.ACCESS_AUD,
+			},
 			data: {},
 			next: async () => {
 				return await handler({ event, resolve });
