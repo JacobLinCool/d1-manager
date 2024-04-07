@@ -4,6 +4,11 @@ settings:
     autoInstallPeers: true
     excludeLinksFromLockfile: false
 
+dependencies:
+    "@cloudflare/pages-plugin-cloudflare-access":
+        specifier: ^1.0.4
+        version: 1.0.4
+
 devDependencies:
     "@ai-d/aid":
         specifier: ^0.1.5
@@ -501,6 +506,13 @@ packages:
         dependencies:
             mime: 3.0.0
         dev: true
+
+    /@cloudflare/pages-plugin-cloudflare-access@1.0.4:
+        resolution:
+            {
+                integrity: sha512-9R80Y4a+TSneX0v8zkwAc6scpYTMxxfyWI9BB3HJLkTtEviASTjZnV4tPjMk90bOtL9yoHT+Xpo90pSaplugUg==,
+            }
+        dev: false
 
     /@cloudflare/workerd-darwin-64@1.20231218.0:
         resolution:
