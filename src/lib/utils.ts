@@ -11,3 +11,12 @@ const SPECIAL_CHARS = ["-"];
 function should_quote(str: string) {
 	return SPECIAL_CHARS.some((char) => str.includes(char));
 }
+
+/**
+ * This function enclose a name string in single quotes if it contains special characters predefined by the SPECIAL_CHARS list
+ * @param name The name to escape
+ * @returns A name enclosed in single quotes if it contains special characters, otherwise the name itself
+ */
+export function quote_name(name: string): string {
+	return should_quote(name) ? `'${name}'` : name;
+}
