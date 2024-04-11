@@ -3,10 +3,13 @@
 	import type { PluginData } from "./type";
 	import type { Type } from "../sqlite";
 	import { affinity, cast } from "../sqlite";
+	import { quote_name } from "$lib/utils";
 
 	export let database: string;
 	export let table: string;
 	export let data: PluginData;
+
+	const quoted_table = quote_name(table);
 
 	const cols = data.db
 		.find(({ name }) => name === table)
@@ -108,8 +111,9 @@
 				return bodies;
 			}
 
+			const quoted_keys = keys?.map(quote_name);
 			const queries = bodies.map(
-				(body) => `INSERT INTO ${table} (${keys?.join(", ")}) VALUES ${body}`,
+				(body) => `INSERT INTO ${quoted_table} (${quoted_keys?.join(", ")}) VALUES ${body}`,
 			);
 
 			console.log(queries);
@@ -155,7 +159,7 @@
 
 		try {
 			const module = import("csv-stringify/browser/esm/sync");
-			const res = await fetch(`/api/db/${database}/${table}/data`);
+			const res = await fetch(`/api/db/${database}/${quoted_table}/data`);
 			const json = await res.json<any>();
 
 			const { stringify } = await module;
