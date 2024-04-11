@@ -2,10 +2,13 @@
 	import { t } from "svelte-i18n";
 	import type { PluginData } from "./type";
 	import { z } from "zod";
+	import { quote_name, quote_record } from "$lib/utils";
 
 	export let database: string;
 	export let table: string;
 	export let data: PluginData;
+
+	const quoted_table = quote_name(table);
 
 	const cols = data.db
 		.find(({ name }) => name === table)
@@ -76,9 +79,10 @@
 		);
 
 		try {
-			const res = await fetch(`/api/db/${database}/${table}/data`, {
+			const quoted_record = quote_record(data);
+			const res = await fetch(`/api/db/${database}/${quoted_table}/data`, {
 				method: "POST",
-				body: JSON.stringify(data),
+				body: JSON.stringify(quoted_record),
 			});
 
 			const json = await res.json<typeof result | typeof error>();
