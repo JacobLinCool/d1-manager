@@ -2,3 +2,12 @@
 
 // This list contains all special characters that should be quoted in a name string
 const SPECIAL_CHARS = ["-"];
+
+/**
+ * This function checks if a string contains any special characters and therefore should be quoted
+ * @param str The string to check
+ * @returns True if the string contains any special characters, otherwise false
+ */
+function should_quote(str: string) {
+	return SPECIAL_CHARS.some((char) => str.includes(char));
+}
