@@ -3,10 +3,13 @@
 	import { t } from "svelte-i18n";
 	import type { PluginData } from "./type";
 	import Icon from "@iconify/svelte";
+	import { quote_name, quote_record } from "$lib/utils";
 
 	export let database: string;
 	export let table: string;
 	export let data: PluginData;
+
+	const quoted_table = quote_name(table);
 
 	const cols =
 		data.db
@@ -51,7 +54,9 @@
 				params.set("order", order);
 				params.set("dir", dir);
 			}
-			const res = await fetch(`/api/db/${database}/${table}/data?${params.toString()}`);
+			const res = await fetch(
+				`/api/db/${database}/${quoted_table}/data?${params.toString()}`,
+			);
 
 			const json = await res.json<typeof result | typeof error>();
 			if (json) {
@@ -103,7 +108,7 @@
 				throw new Error($t("plugin.table-browser.invalid-rowid"));
 			}
 
-			const res = await fetch(`/api/db/${database}/${table}/data/?rowid=${rowid}`, {
+			const res = await fetch(`/api/db/${database}/${quoted_table}/data/?rowid=${rowid}`, {
 				method: "DELETE",
 			});
 
@@ -153,13 +158,15 @@
 			if (!record) {
 				throw new Error($t("plugin.table-browser.no-record"));
 			}
-			const res = await fetch(`/api/db/${database}/${table}/data/?rowid=${rowid}`, {
+			const quoted_record = quote_record(record);
+
+			const res = await fetch(`/api/db/${database}/${quoted_table}/data/?rowid=${rowid}`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					...record,
+					...quoted_record,
 					_: undefined,
 				}),
 			});
