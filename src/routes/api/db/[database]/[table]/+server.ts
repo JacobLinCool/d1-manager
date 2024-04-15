@@ -18,7 +18,7 @@ export const GET: RequestHandler = async ({ params, locals, url, fetch }) => {
 		throw error(404, "Database not found");
 	}
 
-	const { results } = await db.prepare(`SELECT COUNT(*) AS count FROM ${params.table}`).all<{
+	const { results } = await db.prepare(`SELECT COUNT(*) AS count FROM \`${params.table}\``).all<{
 		count: number;
 	}>();
 
@@ -35,6 +35,6 @@ export const DELETE: RequestHandler = async ({ params, locals }) => {
 		throw error(404, "Database not found");
 	}
 
-	const result = await db.prepare(`DROP TABLE ${params.table}`).run();
+	const result = await db.prepare(`DROP TABLE \`${params.table}\``).run();
 	return json(result);
 };

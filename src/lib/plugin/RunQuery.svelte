@@ -6,7 +6,7 @@
 	export let database: string;
 	export let table: string;
 
-	$: query = `SELECT * FROM ${table} LIMIT 100`;
+	$: query = `SELECT * FROM \`${table}\` LIMIT 100`;
 	$: danger = is_dangerous(query);
 
 	let running = false;
