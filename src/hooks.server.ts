@@ -2,8 +2,9 @@ import { extend } from "$lib/log";
 import { DBMS } from "$lib/server/db/dbms";
 import type { Handle, HandleServerError } from "@sveltejs/kit";
 import { locale, waitLocale } from "svelte-i18n";
+import { onRequest } from "./access";
 
-export const handle: Handle = async ({ event, resolve }) => {
+const handler: Handle = async ({ event, resolve }) => {
 	const lang = event.request.headers.get("accept-language")?.split(",")[0] || "en";
 	locale.set(lang);
 	await waitLocale(lang);
@@ -12,6 +13,26 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	const result = await resolve(event);
 	return result;
+};
+
+export const handle: Handle = async ({ event, resolve }) => {
+	console.log(event.request.url);
+	// check request is authenticated
+	if (event.platform?.env.IS_LOCAL_MODE === "1") {
+		return await handler({ event, resolve });
+	} else {
+		return await onRequest({
+			request: event.request,
+			pluginArgs: {
+				domain: event.platform?.env.ACCESS_DOMAIN,
+				aud: event.platform?.env.ACCESS_AUD,
+			},
+			data: {},
+			next: async () => {
+				return await handler({ event, resolve });
+			},
+		});
+	}
 };
 
 const elog = extend("server-error");
