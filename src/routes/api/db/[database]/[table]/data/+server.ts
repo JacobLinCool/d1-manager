@@ -27,7 +27,7 @@ export const GET: RequestHandler = async ({ url, params, locals, fetch }) => {
 
 	const { results } = await db
 		.prepare(
-			`SELECT ${select} FROM ${params.table}${where ? ` WHERE ${where}` : ""}${
+			`SELECT ${select} FROM \`${params.table}\`${where ? ` WHERE ${where}` : ""}${
 				order ? ` ORDER BY ${order} ${dir}` : ""
 			} LIMIT ${limit} OFFSET ${offset}`,
 		)
@@ -58,9 +58,9 @@ export const POST: RequestHandler = async ({ request, params, locals }) => {
 
 	const statement = db
 		.prepare(
-			`INSERT INTO ${params.table} (${Object.keys(data).join(", ")}) VALUES (${Object.keys(
-				data,
-			)
+			`INSERT INTO \`${params.table}\` (${Object.keys(data)
+				.map((key) => `\`${key}\``)
+				.join(", ")}) VALUES (${Object.keys(data)
 				.map(() => "?")
 				.join(", ")})`,
 		)
@@ -95,8 +95,8 @@ export const PUT: RequestHandler = async ({ url, request, params, locals }) => {
 
 	const statement = db
 		.prepare(
-			`UPDATE ${params.table} SET ${Object.keys(data)
-				.map((key) => `${key} = ?`)
+			`UPDATE \`${params.table}\` SET ${Object.keys(data)
+				.map((key) => `\`${key}\` = ?`)
 				.join(", ")} WHERE ${where_sql(where)}`,
 		)
 		.bind(...Object.values(data), ...Object.values(where));
@@ -119,7 +119,7 @@ export const DELETE: RequestHandler = async ({ url, params, locals }) => {
 	const where = Object.fromEntries(url.searchParams.entries());
 
 	const statement = db
-		.prepare(`DELETE FROM ${params.table} WHERE ${where_sql(where)}`)
+		.prepare(`DELETE FROM \`${params.table}\` WHERE ${where_sql(where)}`)
 		.bind(...Object.values(where));
 	const result = await statement.run();
 	return json(result);
