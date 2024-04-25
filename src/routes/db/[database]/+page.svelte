@@ -38,8 +38,11 @@
 
 			const json = await res.json<any>();
 			if (json) {
-				if ("error" in json) {
-					error = json?.error?.cause || json?.error?.message;
+				if (res.status == 500 && json.code == 400) {
+					error = json?.message;
+					duration = undefined;
+				} else if (res.status == 500) {
+					error = "An unknown error has occurred.  Check the browser devtools for more.";
 					duration = undefined;
 				} else {
 					duration = json.duration;
