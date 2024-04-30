@@ -1,0 +1,92 @@
+{
+	"col-default": "Padrão",
+	"col-name": "Nome",
+	"col-type": "Tipo",
+	"d1-manager": {
+		"description": "O D1 Manager é uma interface web e API para o Cloudflare D1, uma base de dados SQL sem servidor. Oferece uma interface amigável para gerir bases de dados, tabelas e registos, bem como uma API para realizar operações de forma programática. O D1 Manager simplifica a gestão de bases de dados, permitindo aos utilizadores concentrarem-se nos seus dados.",
+		"name": "D1 Manager",
+		"short": "Uma interface web para gerir dados no Cloudflare D1."
+	},
+	"d1-manager-manage-db": "Use o D1 Manager para gerir dados em {db}",
+	"download": "Descarregar",
+	"execute-sql-query-in-database": "Executar consulta SQL na base de dados {db}",
+	"import": "Importar",
+	"lang": {
+		"en": "Inglês",
+		"es-ES": "Espanhol de Espanha",
+		"es-MX": "Espanhol do México",
+		"ja": "Japonês",
+		"zh-CN": "Chinês Simplificado",
+		"zh-TW": "Chinês Tradicional"
+	},
+	"language": "Idioma",
+	"n-ms": "{n} ms",
+	"n-table-in-db": "{n} tabelas em {db}",
+	"plugin": {
+		"add-record": {
+			"add": "Adicionar Registo",
+			"column": "Coluna",
+			"error": "Erro",
+			"integer-is-required": "É necessário um número INTEIRO",
+			"n-ms": "{n} ms",
+			"name": "Adicionar Registo",
+			"real-is-required": "É necessário um número REAL",
+			"success": "Sucesso",
+			"value": "Valor"
+		},
+		"csv": {
+			"export": "Exportar",
+			"export-csv": "Exportar CSV",
+			"import": "Importar",
+			"import-csv": "Importar CSV",
+			"invalid-column-name-key": "Nome da coluna inválido: {key}",
+			"n-ms-m-changes": "{n} ms, {m} alterações",
+			"name": "Importador e Exportador de CSV",
+			"no-result": "Sem Resultado",
+			"select-a-csv-file": "Selecionar um ficheiro CSV"
+		},
+		"run-query": {
+			"export": "Exportar",
+			"n-ms-m-changes": "{n} ms, {rr} linhas lidas, {rw} linhas escritas",
+			"name": "Executar Consulta SQL",
+			"no-result": "Sem Resultado",
+			"no-results": "Sem Resultados",
+			"run": "Executar",
+			"unknown-error": "Erro Desconhecido"
+		},
+		"semantic-query": {
+			"autorun-on-read-only-queries": "Consulta somente de leitura será executada automaticamente.",
+			"export": "Exportar",
+			"n-ms-m-changes": "{n} ms, {rr} linhas lidas, {rw} linhas escritas",
+			"name": "Consulta Semântica",
+			"no-result": "Sem Resultado",
+			"no-results": "Sem Resultados",
+			"requires-openai_api_key": "Este plugin requer que a variável de ambiente OPENAI_API_KEY esteja definida.",
+			"run": "Executar",
+			"suggest": "Obter SQL",
+			"unknown-error": "Erro Desconhecido"
+		},
+		"table-browser": {
+			"click-to-sort-by": "Clique para ordenar por {col}",
+			"invalid-rowid": "rowid inválido",
+			"name": "Navegador de Tabelas",
+			"next": "Seguinte",
+			"no-record": "Sem Registo",
+			"no-result": "Sem Resultado",
+			"no-results": "Sem Resultados Correspondentes",
+			"prev": "Anterior",
+			"showing": "{from} ~ {to}",
+			"table-is-locked": "A tabela está bloqueada, desbloqueie para editar",
+			"table-is-locked-click-to-unlock": "A tabela está bloqueada, clique para desbloquear",
+			"table-is-unlocked-click-to-lock": "A tabela está desbloqueada, clique para bloquear",
+			"unknown-error": "Erro Desconhecido"
+		}
+	},
+	"rows": "Linhas",
+	"see-github": "Consulte o uso e guia no GitHub",
+	"select-database": "Selecionar Base de Dados",
+	"select-database-from-above": "Selecione uma base de dados no canto superior direito",
+	"show-first-10-records": "mostrar os primeiros 10 registos em {table}",
+	"suggestion-will-appear-here": "O SQL gerado aparecerá aqui",
+	"theme": "Tema"
+}
