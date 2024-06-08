@@ -57,7 +57,7 @@
 	<div class="prose p-2">
 		<h1>{$t("select-database-from-above")}</h1>
 		<p>
-			<a href="https://github.com/JacobLinCool/d1-manager" target="_blank" rel="noreferrer"
+			<a href="https://github.com/patterns/d1-manager" target="_blank" rel="noreferrer"
 				>{$t("see-github")}</a
 			>
 		</p>
